@@ -10,7 +10,7 @@ function onLeadCreated($event)
   // send a message to slack
   require(__DIR__ . '/../../slack/apis/newlead.php');
   
-  $cSendSlackMessage = curl_init("https://hooks.slack.com/services/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");
+  $cSendSlackMessage = curl_init("https://hooks.slack.com/services/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");
   curl_setopt_array($cSendSlackMessage, array(
     CURLOPT_HTTPHEADER=>array("Content-Type:application/json"),
     CURLOPT_POST=>true,
