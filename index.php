@@ -1,5 +1,15 @@
 <?php
-  echo "DOMO Real Estate";
-  echo "<br>";
-  echo "Integrating slack api ...";
+  $request = $_SERVER['REQUEST_URI'];
+  switch ($request) {
+      case '/sierra/events' :
+          require __DIR__ . '/sierra/events.php';
+          break;
+      case '/view' :
+            require __DIR__ . '/views/contents.php';
+            break;
+      default:
+          http_response_code(404);
+          require __DIR__ . '/views/404.php';
+          break;
+  }
 ?>
