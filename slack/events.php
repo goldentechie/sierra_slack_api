@@ -1,4 +1,4 @@
-<?php
+<?php // Slack Web Hook Handler
 	$file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
 	$requestBody = file_get_contents('php://input');
 	// $event = json_decode($requestBody);
@@ -7,4 +7,6 @@
 	fwrite($file,"\n");
 	fwrite($file,"\n");
 	echo "ok";
+
+	
 ?>
