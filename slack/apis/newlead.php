@@ -1,6 +1,7 @@
 <?php
 function new_lead_template($lead_data)
 {
+    var_dump("slack api");
 	return `{
     "blocks": [
         {

@@ -4,6 +4,9 @@
       case '/sierra/events' :
           require __DIR__ . '/sierra/events.php';
           break;
+      case '/slack/events' :
+          require __DIR__ . '/slack/events.php';
+          break;
       case '/view' :
             require __DIR__ . '/views/contents.php';
             break;
