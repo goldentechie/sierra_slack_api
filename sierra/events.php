@@ -1,7 +1,14 @@
 <?php
 
   // record all events to data.txt
-  $file = fopen("data.txt","a+");
+  $file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
+	$requestBody = file_get_contents('php://input');
+	// $event = json_decode($requestBody);
+	fwrite($file, date('Y-m-d H:i:s') ."\n");
+	fwrite($file, $requestBody);
+	fwrite($file,"\n");
+	fwrite($file,"\n");
+  
   $requestBody = file_get_contents('php://input');
   $event = json_decode($requestBody);
 
@@ -22,7 +29,44 @@
        curl_setopt_array($cSendSlackMessage, array(
          CURLOPT_HTTPHEADER=>array("Content-Type:application/json"),
          CURLOPT_POST=>true,
-         CURLOPT_POSTFIELDS=>'{"blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Last chance guys, #newlead, going once, going twice, #'.$leadData->data->id.'"}},{"type": "section","text": {"type": "mrkdwn","text": "*You have new Contact from*\n<losangeleshomes.com>\n*Price:* \n*City:* '.$leadData->data->streetAddress.'"},"accessory": {"type": "image","image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD2xhgitAer-bNIwOYxcZrQWVZ_9wOr5KGwQ&usqp=CAU","alt_text": "computer thumbnail"}},{"type": "actions","elements": [{"type": "button","text": {"type": "plain_text","text": "Claim this Lead","emoji": true},"value": "click_me_123","action_id": "actionId-0"}]}]}',
+         CURLOPT_POSTFIELDS=>'{
+          "blocks": [
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "Last chance guys, #newlead, going once, going twice, #'.$leadData->data->id.'"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*You have new Contact from*\n<losangeleshomes.com>\n*Price:* \n*City:* '.$leadData->data->streetAddress.'"
+              },
+              "accessory": {
+                "type": "image",
+                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD2xhgitAer-bNIwOYxcZrQWVZ_9wOr5KGwQ&usqp=CAU",
+                "alt_text": "computer thumbnail"
+              }
+            },
+            {
+              "type": "actions",
+              "elements": [
+                {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Claim this Lead",
+                    "emoji": true
+                  },
+                  "value": "click_me_123",
+                  "action_id": "actionId-0"
+                }
+              ]
+            }
+          ]
+        }',
          CURLOPT_RETURNTRANSFER=>true
        ));
        echo curl_exec($cSendSlackMessage);

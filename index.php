@@ -1,5 +1,6 @@
 <?php
   $request = $_SERVER['REQUEST_URI'];
+  
   switch ($request) {
       case '/sierra/events' :
           require __DIR__ . '/sierra/events.php';
