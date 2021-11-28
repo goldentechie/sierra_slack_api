@@ -1,7 +1,6 @@
 <?php // Slack Web Hook Handler
-
+	require('./apis/sendNewLead.php');
 	// when a user claimed the lead on Slack
-
 	// Slack: Receive Claim; receive actoin from slack
 	$file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
 	$requestBody = file_get_contents('php://input');
@@ -68,6 +67,15 @@
 	curl_close($curl);
 
 	// Slack: Send Claimed; send a message to slack that notifies this agent claimed this lead
+	/* 
+	{
+		agent: {
 
-	
+		},
+		lead: {
+			
+		}
+	}
+	*/
+	sendNewLead($data);
 ?>
