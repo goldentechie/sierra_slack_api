@@ -1,8 +1,8 @@
 <?
-function getAgentData ($action) {
+function getAgentData ($username) {
   $curl = curl_init();
   curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://api.sierrainteractivedev.com/agents/find?email='.$action->user->username.'&pageSize=100&officeType=ignore',
+		CURLOPT_URL => 'https://api.sierrainteractivedev.com/agents/find?email='.$username.'&pageSize=100&officeType=ignore',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,

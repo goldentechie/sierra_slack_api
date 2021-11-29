@@ -1,9 +1,11 @@
 <?
-function sendClaimLead ($agent) {
+function sendClaimLeadSierra ($data) {
   $curl = curl_init();
+	$agent = $data->agent;
+	$lead = $data->lead;
 
 	curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://api.sierrainteractivedev.com/leads/2304618',
+		CURLOPT_URL => 'https://api.sierrainteractivedev.com/leads/'.$lead->data->id,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,

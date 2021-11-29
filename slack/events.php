@@ -1,51 +1,32 @@
 <?php // Slack Web Hook Handler
-	require('./apis/sendClaimLead.php');
-	require('./../sierra/api/getAgentData.php');
-	require('./../sierra/api/sendClaimLead.php');
+	require('./apis/receiveSlackEvents.php');
+	require('../sierra/api/getLeadData.php');
+	require('../sierra/api/getAgentData.php');
 
 	// when a user claimed the lead on Slack
 	
-	// Slack: Receive Claim; receive actoin from slack
-	$file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
-	$requestBody = file_get_contents('php://input');
-	$strData = str_replace ("&","",urldecode ($requestBody));
-	$arr = [];
-	parse_str($strData, $arr);
-	$action = json_decode($arr['payload']);
+	$action = receiveSlackEvents();
 
 	// Sierra: Find agent; find the agent that claimed the lead
-	$agent = getAgentData($action);
+	$lead = getLeadData($action->message->blocks[2]->elements[0]->value);
+	$agent = getAgentData($action->user->username);
 	
 	// Sierra: Claim lead; update the lead data by assign to this agent 
-
-	$result = sendClaimLead($agent);
+	
+	$result = sendClaimLeadSierra(json_decode('{"lead":'.json_encode($lead).', "agent": '.json_encode($lead).'}'));
 
 	// Slack: Send Claimed; send a message to slack that notifies this agent claimed this lead
-	/* 
-	{
-		agent: {
-			pictureUrl:;
-			name:;
-		},
-		lead: {
-			id:;
-			price:;
-			city:;
-		}, 
-		
-	}
-	*/
 	$data = json_decode ('{
 		"agent" : {
 			"pictureUrl" : "'.$agent->photo.'",
 			"name" : "'.$agent->firstName.'"
 		},
 		"lead" : {
-			"id" : ,
-			"price" : ,
-			"city" : 
+			"id" : '.$lead->data->id.',
+			"price" : '.$lead->data->searchPreference->minPrice.',
+			"city" : '.$lead->data->searchPreference->city.'
 		}
 	}');
 	if ($result->success)
-		sendClaimLead($data);
+		sendClaimLeadMessage($data);
 ?>
