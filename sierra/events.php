@@ -17,6 +17,7 @@
   {
     case "LeadCreated":
       { 
+        // get lead detail from the sierra
         getLeadData($event->resourceList[0]);
         // send a message to slack
         sendNewLead($leadData);
