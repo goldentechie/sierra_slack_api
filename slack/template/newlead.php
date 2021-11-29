@@ -32,8 +32,8 @@ function new_lead_template($leadData)
                   "text": "Claim this Lead",
                   "emoji": true
                 },
-                "value": "click_me_123",
-                "action_id": "actionId-0"
+                "value": "'.$leadData->data->id.'",
+                "action_id": "claim-lead"
               }
             ]
           }

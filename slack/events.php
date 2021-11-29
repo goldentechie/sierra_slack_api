@@ -1,5 +1,5 @@
 <?php // Slack Web Hook Handler
-	require('./apis/sendNewLead.php');
+	require('./apis/sendClaimLead.php');
 	// when a user claimed the lead on Slack
 	// Slack: Receive Claim; receive actoin from slack
 	$file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
@@ -9,7 +9,7 @@
 	parse_str($strData, $arr);
 	$action = json_decode($arr['payload']);
 
-	// Sierra: Find Lead; find the agent that claimed the lead
+	// Sierra: Find agent; find the agent that claimed the lead
 	$curl = curl_init();
 
 	curl_setopt_array($curl, array(
@@ -63,19 +63,35 @@
 	));
 	
 	$response = curl_exec($curl);
-	
+	$result = json_decode($response);
 	curl_close($curl);
 
 	// Slack: Send Claimed; send a message to slack that notifies this agent claimed this lead
 	/* 
 	{
 		agent: {
-
+			pictureUrl:;
+			name:;
 		},
 		lead: {
-			
-		}
+			id:;
+			price:;
+			city:;
+		}, 
+		
 	}
 	*/
-	sendNewLead($data);
+	$data = json_decode ('{
+		"agent" : {
+			"pictureUrl" : "'.$agent->photo.'",
+			"name" : "'.$agent->firstName.'"
+		},
+		"lead" : {
+			"id" : ,
+			"price" : ,
+			"city" : 
+		}
+	}');
+	if ($result->success)
+		sendClaimLead($data);
 ?>

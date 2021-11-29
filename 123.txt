@@ -1,0 +1,16 @@
+sierra.event
+	Sierra->Panda: Web Hook: New lead is created.
+		leadData = event.seirra->getLeadData 
+
+	Panda->Slack: Send Message: New lead is created.
+		slack.message(leadData);
+
+slack.event
+	Slack->Panda: Web Hook: Claim Lead
+		userData = event.slack->getUserData
+
+	Panda->Sierra: Claim Lead
+		result = updateLeadData(userData);
+
+	Panda->Slack: Success: Lead Claimed
+		slack.message(result);

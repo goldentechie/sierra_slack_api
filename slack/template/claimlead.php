@@ -7,7 +7,7 @@ function claim_lead_template($data)
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "Last chance guys, #newlead, going once, going twice, #'.$data->lead->Id.'"
+            "text": "Last chance guys, #newlead, going once, going twice, #'.$data->lead->id.'"
           }
         },
         {
