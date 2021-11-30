@@ -1,7 +1,7 @@
 <?php
 $DEV_MODE="local";
 
-$SLACK_WEB_HOOK_URL="https://hooks.slack.com/services/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";
+$SLACK_WEB_HOOK_URL="https://hooks.slack.com/services/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";
 
 $SIERRA_API_KEY='Sierra-ApiKey: ba5d2b88-642d-4629-a2ca-30c3dcab34a5';
 
