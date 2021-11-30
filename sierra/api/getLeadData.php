@@ -1,8 +1,11 @@
 <?
+require('../../config.php');
 function getLeadData ($id) {
-  $cGetLead = curl_init("https://api.sierrainteractivedev.com/leads/get/".$id."?includeSavedSearches=true&includeTags=true&includeActionPlans=true");
+  global $SIERRA_GET_LEAD_URL;
+	global $SIERRA_HEADER;
+  $cGetLead = curl_init($SIERRA_GET_LEAD_URL.$id);
 
-  curl_setopt($cGetLead, CURLOPT_HTTPHEADER, array("Content-Type:application/json", "Sierra-ApiKey:ba5d2b88-642d-4629-a2ca-30c3dcab34a5"));
+  curl_setopt($cGetLead, CURLOPT_HTTPHEADER, $SIERRA_HEADER);
   curl_setopt($cGetLead, CURLOPT_RETURNTRANSFER, true);
   $cleadData = curl_exec($cGetLead);
   $leadData = json_decode($cleadData);

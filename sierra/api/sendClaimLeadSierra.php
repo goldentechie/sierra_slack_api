@@ -1,5 +1,7 @@
 <?
+require('../../config.php');
 function sendClaimLeadSierra ($data) {
+	global $SIERRA_HEADER;
   $curl = curl_init();
 	$agent = $data->agent;
 	$lead = $data->lead;
@@ -23,10 +25,7 @@ function sendClaimLeadSierra ($data) {
 					"agentSiteId": -1
 			}
 	}',
-		CURLOPT_HTTPHEADER => array(
-			'Sierra-ApiKey: ba5d2b88-642d-4629-a2ca-30c3dcab34a5',
-			'Content-Type: application/json'
-		),
+		CURLOPT_HTTPHEADER => $SIERRA_HEADER,
 	));
 	
 	$response = curl_exec($curl);
