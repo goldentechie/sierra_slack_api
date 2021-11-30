@@ -1,5 +1,5 @@
-<?
-require('../../config.php');
+<?php
+require('./config.php');
 function getLeadData ($id) {
   global $SIERRA_GET_LEAD_URL;
 	global $SIERRA_HEADER;

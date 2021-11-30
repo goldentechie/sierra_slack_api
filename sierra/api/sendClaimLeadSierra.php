@@ -1,5 +1,5 @@
-<?
-require('../../config.php');
+<?php
+require('./config.php');
 function sendClaimLeadSierra ($data) {
 	global $SIERRA_HEADER;
   $curl = curl_init();

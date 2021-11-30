@@ -1,6 +1,6 @@
-<?
-include('../../config.php');
-require ("../template/newlead.php");
+<?php
+require('./config.php');
+require ("./slack/template/newlead.php");
 function sendNewLead($leadData) {
   global $SLACK_WEB_HOOK_URL;
 

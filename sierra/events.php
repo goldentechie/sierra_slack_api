@@ -1,7 +1,7 @@
 <?php // Sierra Web Hook Handler
-  require ("./api/getLeadData.php");
-  require ("../slack/apis/sendNewLead.php");
-  require ("./api/receiveSierraEvents.php");
+  require ("./sierra/api/getLeadData.php");
+  require ("./sierra/api/receiveSierraEvents.php");
+  require ("./slack/apis/sendNewLead.php");
   // record all events to data.txt
   $event = receiveSierraEvents();
 

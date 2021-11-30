@@ -1,6 +1,7 @@
-<?
-include('../../config.php');
-require ("../template/claimlead.php");
+<?php
+require('./config.php');
+require ("./slack/template/claimlead.php");
+
 function sendClaimLeadMessage($data) {
   global $SLACK_WEB_HOOK_URL;
   $curl = curl_init($SLACK_WEB_HOOK_URL);

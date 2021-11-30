@@ -1,5 +1,5 @@
-<?
-require('../../config.php');
+<?php
+require('./config.php');
 function getAgentData ($username) {
 	global $SIERRA_GET_AGENT_URL;
 	global $SIERRA_HEADER;
