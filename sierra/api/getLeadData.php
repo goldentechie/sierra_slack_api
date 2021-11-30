@@ -10,5 +10,5 @@ function getLeadData ($id) {
   $cleadData = curl_exec($cGetLead);
   $leadData = json_decode($cleadData);
   curl_close($cGetLead);
-  return $cGetLead;
+  return $leadData;
 }

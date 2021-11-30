@@ -1,0 +1,12 @@
+2021-11-30 22:09:01
+{
+    "eventCreated": "2021-11-17T19:03:01.66Z",
+    "eventType": "LeadCreated",
+    "resourceList": [
+        2304618
+    ],
+    "data": {
+        "claimed": true
+    }
+}
+

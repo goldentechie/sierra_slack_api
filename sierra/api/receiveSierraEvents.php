@@ -1,7 +1,11 @@
 <?php
+require("./config.php");
+
 function receiveSierraEvents()
 {
-  $file = fopen("/home/u694294751/domains/crpanadasoft.com/public_html/data.txt","w");
+	global $LOG_URL;
+
+  $file = fopen($LOG_URL,"w");
 	$requestBody = file_get_contents('php://input');
 	// $event = json_decode($requestBody);
 	fwrite($file, date('Y-m-d H:i:s') ."\n");

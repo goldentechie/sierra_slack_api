@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en-US" class="">
+
+<head>
+	<script>
+		window.ts_endpoint_url = "https:\/\/slack.com\/beacon\/timing";(function(e) {
+	var n=Date.now?Date.now():+new Date,r=e.performance||{},t=[],a={},i=function(e,n){for(var r=0,a=t.length,i=[];a>r;r++)t[r][e]==n&&i.push(t[r]);return i},o=function(e,n){for(var r,a=t.length;a--;)r=t[a],r.entryType!=e||void 0!==n&&r.name!=n||t.splice(a,1)};r.now||(r.now=r.webkitNow||r.mozNow||r.msNow||function(){return(Date.now?Date.now():+new Date)-n}),r.mark||(r.mark=r.webkitMark||function(e){var n={name:e,entryType:"mark",startTime:r.now(),duration:0};t.push(n),a[e]=n}),r.measure||(r.measure=r.webkitMeasure||function(e,n,r){n=a[n].startTime,r=a[r].startTime,t.push({name:e,entryType:"measure",startTime:n,duration:r-n})}),r.getEntriesByType||(r.getEntriesByType=r.webkitGetEntriesByType||function(e){return i("entryType",e)}),r.getEntriesByName||(r.getEntriesByName=r.webkitGetEntriesByName||function(e){return i("name",e)}),r.clearMarks||(r.clearMarks=r.webkitClearMarks||function(e){o("mark",e)}),r.clearMeasures||(r.clearMeasures=r.webkitClearMeasures||function(e){o("measure",e)}),e.performance=r,"function"==typeof define&&(define.amd||define.ajs)&&define("performance",[],function(){return r}) // eslint-disable-line
+})(window);
+	</script>
+	<script>
+		(function () {
+	
+	window.TSMark = function (mark_label) {
+		if (!window.performance || !window.performance.mark) return;
+		performance.mark(mark_label);
+	};
+	window.TSMark('start_load');
+
+	
+	window.TSMeasureAndBeacon = function (measure_label, start_mark_label) {
+		if (!window.performance || !window.performance.mark || !window.performance.measure) {
+			return;
+		}
+
+		performance.mark(start_mark_label + '_end');
+
+		try {
+			performance.measure(measure_label, start_mark_label, start_mark_label + '_end');
+			window.TSBeacon(measure_label, performance.getEntriesByName(measure_label)[0].duration);
+		} catch (e) {
+			
+		}
+	};
+
+	
+	if ('sendBeacon' in navigator) {
+		window.TSBeacon = function (label, value) {
+			var endpoint_url = window.ts_endpoint_url || 'https://slack.com/beacon/timing';
+			navigator.sendBeacon(
+				endpoint_url + '?data=' + encodeURIComponent(label + ':' + value),
+				''
+			);
+		};
+	} else {
+		window.TSBeacon = function (label, value) {
+			var endpoint_url = window.ts_endpoint_url || 'https://slack.com/beacon/timing';
+			new Image().src = endpoint_url + '?data=' + encodeURIComponent(label + ':' + value);
+		};
+	}
+})();
+	</script>
+	<script>
+		window.TSMark('step_load');
+	</script><noscript>
+		<meta http-equiv="refresh" content="0; URL="></noscript>
+	<script type="text/javascript">
+		var safe_hosts = ['app.optimizely.com', 'tinyspeck.dev.slack.com'];
+
+if (self !== top && safe_hosts.indexOf(top.location.host) === -1) {
+	window.document.write(
+		'\u003Cstyle>body * {display:none !important;}\u003C/style>\u003Ca href="#" onclick=' +
+			'"top.location.href=window.location.href" style="display:block !important;padding:10px">Go to Slack.com\u003C/a>'
+	);
+}
+
+(function() {
+	var timer;
+	if (self !== top && safe_hosts.indexOf(top.location.host) === -1) {
+		timer = window.setInterval(function() {
+			if (window) {
+				try {
+					var pageEl = document.getElementById('page');
+					var clientEl = document.getElementById('client-ui');
+					var sectionEls = document.querySelectorAll('nav, header, section');
+
+					pageEl.parentNode.removeChild(pageEl);
+					clientEl.parentNode.removeChild(clientEl);
+					for (var i = 0; i < sectionEls.length; i++) {
+						sectionEls[i].parentNode.removeChild(sectionEls[i]);
+					}
+					window.TS = null;
+					window.TD = null;
+					window.clearInterval(timer);
+				} catch (e) {}	
+			}
+		}, 200);
+	}
+})();
+	</script>
+	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true"
+		data-domain-script="fe78fd86-b58b-4f0c-a311-dd924eb08736"></script>
+	<script>
+		function getScrollPercent() {
+	var h = document.documentElement, b = document.body, st = 'scrollTop', sh = 'scrollHeight';
+	return Math.round((h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100);
+}
+
+function initDrift() {
+	if (window.drift_loaded) return;
+	if (0 > 0 && 0 > getScrollPercent()) {
+		document.addEventListener('scroll', function() {
+			var p = getScrollPercent();
+			if (p >= 0) { bootDrift(); }
+		});
+	} else { bootDrift(); }
+}
+
+function bootDrift() {
+	if (window.drift_loaded) return;
+	if (!window.drift) return;
+	if (!window.OnetrustActiveGroups || window.OnetrustActiveGroups.includes('C0003')) {
+		window.drift_loaded = true;
+		setTimeout(function() { drift.load('a6yri4b82zv7'); }, 0);
+	}
+}
+function OptanonWrapper() {
+	window.dataLayer.push({'event': 'OneTrustReady'});
+	if (!Optanon.GetDomainData().ShowAlertNotice || false) {
+		initDrift();
+	}
+	Optanon.OnConsentChanged(function() {
+		initDrift();
+	});
+}
+	</script>
+	<title>Slack API | Slack</title>
+	<meta name="HandheldFriendly" content="true">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="author" content="Slack">
+	<meta name="description"
+		content="Slack APIs allow you to integrate complex services with Slack to go beyond the integrations we provide out of the box.">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Slack API">
+	<meta property="og:title" content="Slack API">
+	<meta property="og:image" content="https://a.slack-edge.com/80588/img/services/api_200.png">
+	<meta property="og:description"
+		content="Slack APIs allow you to integrate complex services with Slack to go beyond the integrations we provide out of the box.">
+	<meta property="og:url" content="https://slack.com/">
+	<meta name="twitter:site" content="@slackapi">
+	<meta name="twitter:card" content="summary">
+	<link href="https://a.slack-edge.com/bv1-9/modern.vendor.a2b1c7f.min.css" rel="stylesheet" type="text/css"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null" crossorigin="anonymous">
+	<link href="https://a.slack-edge.com/9a0398b/style/rollup-api_docs_nebulae.css" rel="stylesheet" type="text/css"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null" crossorigin="anonymous">
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/webpack.manifest.d54f8488f5bcbdaf1914.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<link id="favicon" rel="shortcut icon" href="https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png"
+		sizes="16x16 32x32 48x48" type="image/png">
+	<link rel="alternate" type="application/rss+xml" title="Recent changes to the Slack platform RSS Feed"
+		href="/changelog.rss">
+</head>
+
+<body class="apiDocs apiDocs__home apiDocsLayout apiDocsLayout__home">
+	<header data-body-toggle="apiDocsHeaderNav__overlayActive"
+		class="apiDocsHeader apiDocsToggler apiDocsToggler--mobileOnly">
+		<div class="apiDocsHeader__container">
+			<div class="apiDocsHeader__logoWrapper"><a href="https://api.slack.com/" tabindex="1"
+					class="apiDocsHeader__logo"><svg viewBox="0 0 600 114" xmlns="http://www.w3.org/2000/svg">
+						<path class="apiLogo__text"
+							d="m504.31 29v60.47h-5.37v-10.37c-3.87 6.5-13.5 11.62-22.74 11.62-17.62 0-30.98-13.5-30.98-31.61 0-17.87 13.37-31.36 30.98-31.36 9.37 0 19.12 5.12 22.74 11.62v-10.37zm-5.37 44.1v-27.74c-3.87-7.37-13.25-12.62-22.11-12.62-14.99 0-26.24 11.25-26.24 26.36 0 15.24 11.25 26.49 26.24 26.49 8.74.01 18.11-5.24 22.11-12.49z">
+						</path>
+						<path class="apiLogo__text"
+							d="m578.93 59.36c0 17.86-13.37 31.36-30.99 31.36-9.25 0-18.87-5-22.62-11.37v34.11h-5.5v-84.46h5.5v10.24c3.87-6.5 13.5-11.5 22.62-11.5 17.62.01 30.99 13.5 30.99 31.62zm-5.38 0c0-15.24-11.25-26.49-26.24-26.49-8.74 0-17.99 5.12-21.99 12.24v28.24c3.87 7.25 13.24 12.37 21.99 12.37 15 0 26.24-11.24 26.24-26.36z">
+						</path>
+						<path class="apiLogo__text"
+							d="m598.03 8.63c0 2.75-2.37 4.75-4.75 4.75-2.75 0-4.87-2-4.87-4.75 0-2.5 2.13-4.62 4.87-4.62 2.38 0 4.75 2.12 4.75 4.62zm-2.12 20.37v60.47h-5.5v-60.47z">
+						</path>
+						<path class="apiLogo__text"
+							d="m134.03 83.07 5.17-12.07c5.66 4.19 13.06 6.4 20.44 6.4 5.42 0 8.87-2.09 8.87-5.3-.12-8.87-32.64-1.97-32.89-24.26-.12-11.33 9.98-20.08 24.26-20.08 8.5 0 17 2.09 23.03 6.9l-4.83 12.33c-5.55-3.56-12.41-6.05-18.94-6.05-4.43 0-7.39 2.09-7.39 4.8.12 8.75 32.89 3.94 33.26 25.25 0 11.58-9.85 19.71-23.9 19.71-10.33 0-19.82-2.46-27.08-7.63">
+						</path>
+						<path class="apiLogo__text"
+							d="m333.79 66.63c-2.58 4.56-7.47 7.63-13.08 7.63-8.3 0-15.03-6.73-15.03-15.03s6.73-15.03 15.03-15.03c5.61 0 10.5 3.08 13.08 7.63l14.38-7.97c-5.39-9.61-15.66-16.11-27.46-16.11-17.38 0-31.47 14.09-31.47 31.47s14.09 31.47 31.47 31.47c11.8 0 22.08-6.5 27.46-16.11z">
+						</path>
+						<path class="apiLogo__text" d="m192.27 1.57h17.98v87.9h-17.98z"></path>
+						<path class="apiLogo__text"
+							d="m355.17 1.57v87.9h17.98v-26.33l21.31 26.33h22.99l-27.1-31.28 25.12-29.19h-21.99l-20.33 24.26v-51.69z">
+						</path>
+						<path class="apiLogo__text"
+							d="m263.57 66.75c-2.59 4.31-8.01 7.51-14.04 7.51-8.3 0-15.03-6.73-15.03-15.03s6.73-15.03 15.03-15.03c6.03 0 11.45 3.33 14.04 7.76zm0-37.75v7.14c-2.96-4.93-10.22-8.37-17.86-8.37-15.77 0-28.21 13.92-28.21 31.41s12.44 31.53 28.21 31.53c7.64 0 14.9-3.45 17.86-8.38v7.14h17.98v-60.47z">
+						</path>
+						<path
+							d="m22.96 66.64c0 6.13-4.97 11.11-11.11 11.11s-11.1-4.98-11.1-11.11 4.97-11.11 11.11-11.11h11.11v11.11z"
+							fill="#e01e5a"></path>
+						<path
+							d="m28.51 66.64c0-6.13 4.97-11.11 11.11-11.11s11.11 4.97 11.11 11.11v27.77c0 6.13-4.97 11.11-11.11 11.11s-11.11-4.97-11.11-11.11z"
+							fill="#e01e5a"></path>
+						<path
+							d="m39.62 22.21c-6.13 0-11.11-4.97-11.11-11.11s4.98-11.1 11.11-11.1 11.11 4.97 11.11 11.11v11.11h-11.11z"
+							fill="#36c5f0"></path>
+						<path
+							d="m39.62 27.77c6.13 0 11.11 4.97 11.11 11.11s-4.97 11.11-11.11 11.11h-27.77c-6.13 0-11.11-4.97-11.11-11.11s4.97-11.11 11.11-11.11z"
+							fill="#36c5f0"></path>
+						<path
+							d="m84.05 38.87c0-6.13 4.97-11.11 11.11-11.11 6.13 0 11.11 4.97 11.11 11.11s-4.97 11.11-11.11 11.11h-11.11z"
+							fill="#2eb67d"></path>
+						<path
+							d="m78.49 38.87c0 6.13-4.97 11.11-11.11 11.11-6.13 0-11.11-4.97-11.11-11.11v-27.76c.01-6.14 4.98-11.11 11.12-11.11 6.13 0 11.11 4.97 11.11 11.11v27.76z"
+							fill="#2eb67d"></path>
+						<g fill="#ecb22e">
+							<path
+								d="m67.39 83.3c6.13 0 11.11 4.97 11.11 11.11 0 6.13-4.97 11.11-11.11 11.11-6.13 0-11.11-4.97-11.11-11.11v-11.11z">
+							</path>
+							<path
+								d="m67.39 77.75c-6.13 0-11.11-4.97-11.11-11.11s4.97-11.11 11.11-11.11h27.77c6.13 0 11.11 4.97 11.11 11.11s-4.97 11.11-11.11 11.11z">
+							</path>
+						</g>
+					</svg></a></div>
+			<div class="apiDocsHeader__menuTrigger apiDocsToggler__toggle">
+				<button tabindex="2" class="c-button c-button--outline c-button--large c-button--icon"><i class="c-icon c-icon--grabby-patty"></i></button>
+			</div>
+			<div class="apiDocsHeader__menu apiDocsToggler__target">
+				<div class="apiDocsHeader__search">
+					<form class="apiSearch" accept-charset="UTF-8" action="/search" method="get" role="search">
+						<div class="apiSearch__container" role="presentation">
+							<label class="apiSearch__button" for="query"><i class="c-icon c-icon--search-medium" aria-hidden="true"></i></label><input class="apiSearch__input" id="query" name="query" value="" type="text" tabindex="3" placeholder="Search" data-smallplaceholder="Search the documentation" data-qa="api_search_input"></div>
+					</form>
+				</div>
+				<div class="apiDocsHeader__nav">
+					<div class="apiDocsHeaderNav" id="apiDocsHeaderNavNonReact">
+						<div tabindex="0" role="button" aria-expanded="false"
+							class="apiDocsHeaderNav__item apiDocsHovercard apiDocsHeaderNav__item--docs apiDocsHovercard--current">
+							<span class="apiDocsHovercard__trigger"><a data-qa="documentation" href="/docs">Docs</a></span>
+							<div class="apiDocsHovercard__target">
+								<div class="apiDocsHovercard__card apiDocsHovercard__card--notMobile" tabindex="-1">
+									<span class="apiDocsHovercard__groupTitle"><a tabindex="0" role="link" data-qa="documentation" href="/docs"><i class="c-icon c-icon--inline c-icon--book"></i>Docs and feature guides</a></span>
+									<nav id="docs_nav" class="apiDocsNav">
+										<div class="apiDocsNav__flat">
+											<div class="apiDocsNav__subgroups">
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--map"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/start">Start learning</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--lock-large-o"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/authentication">Authentication</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--gn-menu-small"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/surfaces">Surfaces</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--blocks"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/block-kit">Block Kit</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--plug"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/interactivity">Interactivity</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--dm"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/messaging">Messaging</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--cogs"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/apis">APIs</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--magic"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/workflows">Workflows</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--building"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/enterprise">Enterprise</a></div>
+												</div>
+												<div class="apiDocsNav__group">
+													<div
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--filters"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/admins">Apps for Admins</a></div>
+												</div>
+											</div>
+										</div>
+									</nav>
+									<span class="apiDocsHovercard__groupTitle"><a tabindex="0" role="link" data-qa="reference" href="/reference"><i class="c-icon c-icon--inline c-icon--code"></i>Reference</a></span>
+								</div>
+								<div class="apiDocsHovercard__card apiDocsHovercard__card--mobileOnly" tabindex="-1">
+									<span class="apiDocsHovercard__groupTitle"><a tabindex="0" role="link" data-qa="documentation" href="/docs"><i class="c-icon c-icon--inline c-icon--book"></i>Docs and feature guides</a></span>
+									<nav id="docs_nav" class="apiDocsNav">
+										<div class="apiDocsNav__expandable">
+											<div class="apiDocsNav__subgroups">
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--map"></i><span class="apiDocsNav__groupTitleText">Start learning</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/overview" target="" role="link"
+																		title="Intro to the Slack platform">Intro to the
+																		Slack platform </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Planning your app</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/planning" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/planning/triggers" target=""
+																		role="link"
+																		title="Planning interaction">Planning
+																		interaction </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/planning/choosing" target=""
+																		role="link" title="Choosing APIs">Choosing APIs
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/planning/communicating" target=""
+																		role="link" title="Communicating">Communicating
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/planning/guidelines" target=""
+																		role="link"
+																		title="Interaction guidelines">Interaction
+																		guidelines </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Designing a great
+																experience</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/tabs" target=""
+																		role="link"
+																		title="Designing home tabs">Designing home tabs
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/modals" target=""
+																		role="link" title="Designing modals">Designing
+																		modals </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/shortcuts" target=""
+																		role="link" title="Shortcut guidelines">Shortcut
+																		guidelines </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/voice-tone" target=""
+																		role="link"
+																		title="Choosing voice &amp; tone">Choosing voice
+																		&amp; tone </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/localizing" target=""
+																		role="link" title="Localizing apps">Localizing
+																		apps </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/onboarding" target=""
+																		role="link"
+																		title="Onboarding experiences">Onboarding
+																		experiences </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/designing/guidelines" target=""
+																		role="link" title="General guidelines">General
+																		guidelines </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Building an app</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/building" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/building/bolt-js" target=""
+																		role="link"
+																		title="Developing with JavaScript">Developing
+																		with JavaScript </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/building/bolt-python" target=""
+																		role="link"
+																		title="Developing with Python">Developing with
+																		Python </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/building/bolt-java" target=""
+																		role="link"
+																		title="Developing with Java">Developing with
+																		Java </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/building/workflow-builder"
+																		target="" role="link"
+																		title="Workflow Builder">Workflow Builder </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/block-kit-builder" target="" role="link"
+																		title="Block Kit Builder">Block Kit Builder </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/tools" target="" role="link"
+																		title="SDKs &amp; tools">SDKs &amp; tools </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/best-practices/blueprints" target=""
+																		role="link" title="App blueprints">App
+																		blueprints </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Distributing an app
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/distributing" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/distributing/public" target=""
+																		role="link"
+																		title="Distributing apps publicly">Distributing
+																		apps publicly </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/distributing/directory" target=""
+																		role="link"
+																		title="Using the App Directory">Using the App
+																		Directory </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/distributing/guidelines" target=""
+																		role="link" title="App Directory Guidelines">App
+																		Directory Guidelines </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/start/distributing/directory#policies"
+																		target="" role="link"
+																		title="Developer policies">Developer policies
+																	</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--lock-large-o"></i><span class="apiDocsNav__groupTitleText">Authentication</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication" target="" role="link"
+																		title="Overview">Overview </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Installation &amp;
+																Permissions</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/basics" target=""
+																		role="link" title="Basic app setup">Basic app
+																		setup </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/oauth-v2" target=""
+																		role="link"
+																		title="Installing with OAuth">Installing with
+																		OAuth </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/quickstart" target=""
+																		role="link"
+																		title="Quickstart: what's new">Quickstart:
+																		what's new </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/migration" target=""
+																		role="link" title="Migration guide">Migration
+																		guide </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/rotation" target=""
+																		role="link" title="Token rotation">Token
+																		rotation </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Security</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/verifying-requests-from-slack"
+																		target="" role="link"
+																		title="Verifying requests">Verifying requests
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/best-practices" target=""
+																		role="link" title="Best practices">Best
+																		practices </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Access tokens</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/token-types" target=""
+																		role="link" title="Token types">Token types </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/config-tokens" target=""
+																		role="link"
+																		title="Configuration tokens">Configuration
+																		tokens </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/scopes" target="" role="link"
+																		title="Scopes">Scopes </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/authentication/sign-in-with-slack"
+																		target="" role="link"
+																		title="Sign in with Slack">Sign in with Slack
+																	</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--gn-menu-small"></i><span class="apiDocsNav__groupTitleText">Surfaces</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces" target="" role="link"
+																		title="Overview">Overview </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Home tabs</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/tabs" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/tabs/using" target=""
+																		role="link" title="Using your Home tab">Using
+																		your Home tab </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/tabs/events" target=""
+																		role="link" title="Events in App Home">Events in
+																		App Home </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Modals</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/modals" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/modals/using" target=""
+																		role="link" title="Using modals">Using modals
+																	</a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Messages</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/surfaces/messages" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/sending" target="" role="link"
+																		title="Sending messages">Sending messages </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/composing/layouts" target=""
+																		role="link" title="Rich message layouts">Rich
+																		message layouts </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/interactivity" target=""
+																		role="link"
+																		title="Interactive messages">Interactive
+																		messages </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/surfaces/views" target=""
+																		role="link" title="Defining views">Defining
+																		views </a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--blocks"></i><span class="apiDocsNav__groupTitleText">Block Kit</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/block-kit" target="" role="link"
+																		title="Overview">Overview </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Block basics</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/block-kit/building" target="" role="link"
+																		title="Building with Block Kit">Building with
+																		Block Kit </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/block-kit/interactivity" target=""
+																		role="link"
+																		title="Interactivity in Block Kit">Interactivity
+																		in Block Kit </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/tools/block-kit-builder" target=""
+																		role="link" title="Block Kit Builder">Block Kit
+																		Builder </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/tools/block-kit-builder?template=1"
+																		target="" role="link" title="App templates">App
+																		templates </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit" target=""
+																		role="link" title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/blocks" target=""
+																		role="link" title="Blocks">Blocks </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/block-elements"
+																		target="" role="link"
+																		title="Block elements">Block elements </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/interactive-components"
+																		target="" role="link"
+																		title="Interactive components">Interactive
+																		components </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/composition-objects"
+																		target="" role="link"
+																		title="Composition objects">Composition objects
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/views" target=""
+																		role="link" title="Defining views">Defining
+																		views </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads/block-actions"
+																		target="" role="link"
+																		title="block_actions payloads">block_actions
+																		payloads </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads/views"
+																		target="" role="link"
+																		title="View interaction payloads">View
+																		interaction payloads </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/block-kit/dialogs-to-modals" target=""
+																		role="link"
+																		title="Upgrading to modals">Upgrading to modals
+																	</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--plug"></i><span class="apiDocsNav__groupTitleText">Interactivity</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/handling" target=""
+																		role="link"
+																		title="Handling user interaction">Handling user
+																		interaction </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Entry points</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/entry-points" target=""
+																		role="link" title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/shortcuts#" target=""
+																		role="link" title="Shortcuts">Shortcuts </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/slash-commands" target=""
+																		role="link" title="Slash Commands">Slash
+																		Commands </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/components" target=""
+																		role="link"
+																		title="Interactive components">Interactive
+																		components </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Shortcuts</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/shortcuts" target=""
+																		role="link" title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/interactivity/shortcuts/using" target=""
+																		role="link"
+																		title="Implementing shortcuts">Implementing
+																		shortcuts </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Interaction payloads
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads" target=""
+																		role="link" title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads/shortcuts"
+																		target="" role="link"
+																		title="Shortcuts payloads">Shortcuts payloads
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads/block-actions"
+																		target="" role="link"
+																		title="block_actions payloads">block_actions
+																		payloads </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/interaction-payloads/views"
+																		target="" role="link"
+																		title="View interaction payloads">View
+																		interaction payloads </a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--dm"></i><span class="apiDocsNav__groupTitleText">Messaging</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Managing messages</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/managing" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/retrieving" target=""
+																		role="link"
+																		title="Retrieving messages">Retrieving messages
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/sending" target="" role="link"
+																		title="Sending messages">Sending messages </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/modifying" target=""
+																		role="link" title="Modifying messages">Modifying
+																		messages </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/scheduling" target=""
+																		role="link"
+																		title="Scheduling messages">Scheduling messages
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/webhooks" target="" role="link"
+																		title="Using Webhooks">Using Webhooks </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Composing messages</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/composing" target=""
+																		role="link" title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/composing/formatting" target=""
+																		role="link" title="Formatting text">Formatting
+																		text </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/composing/layouts" target=""
+																		role="link" title="Message layouts">Message
+																		layouts </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/interactivity" target=""
+																		role="link"
+																		title="Interactive messages">Interactive
+																		messages </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/tools/block-kit-builder" target=""
+																		role="link" title="Block Kit Builder">Block Kit
+																		Builder </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Working with files</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/files" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/files/setup" target=""
+																		role="link"
+																		title="Preparing your app for files">Preparing
+																		your app for files </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/files/uploading" target=""
+																		role="link"
+																		title="Uploading files to Slack">Uploading files
+																		to Slack </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/files/remote" target=""
+																		role="link" title="Adding remote files">Adding
+																		remote files </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/messaging/payload" target=""
+																		role="link" title="Messages">Messages </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/block-kit/blocks" target=""
+																		role="link" title="Blocks">Blocks </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/messaging/attachments"
+																		target="" role="link"
+																		title="Secondary attachments">Secondary
+																		attachments </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/messaging/link-unfurling"
+																		target="" role="link"
+																		title="Link unfurling">Link unfurling </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/messaging/attachments-to-blocks"
+																		target="" role="link"
+																		title="Upgrading to blocks">Upgrading to blocks
+																	</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--cogs"></i><span class="apiDocsNav__groupTitleText">APIs</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis" target="" role="link"
+																		title="Overview">Overview </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Connection protocols
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/connections" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/connections/events-api" target=""
+																		role="link"
+																		title="Using the Events API over HTTP">Using the
+																		Events API over HTTP </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/connections/socket" target=""
+																		role="link" title="Intro to Socket Mode">Intro
+																		to Socket Mode </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/connections/socket-implement"
+																		target="" role="link"
+																		title="Socket Mode implementation">Socket Mode
+																		implementation </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Usage guides</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/web" target="" role="link"
+																		title="Using the Web API">Using the Web API </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/docs/pagination" target="" role="link"
+																		title="Pagination">Pagination </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/docs/rate-limits" target="" role="link"
+																		title="Rate limits">Rate limits </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/channels-between-orgs" target=""
+																		role="link" title="Slack Connect">Slack Connect
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/connect" target="" role="link"
+																		title="Slack Connect APIs">Slack Connect APIs
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/docs/slack-status" target="" role="link"
+																		title="Status API">Status API </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/apis/calls" target="" role="link"
+																		title="Calls API">Calls API </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/docs/presence-and-status" target=""
+																		role="link"
+																		title="Presence &amp; status">Presence &amp;
+																		status </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/methods" target="" role="link"
+																		title="Methods">Methods </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events" target="" role="link"
+																		title="Event types">Event types </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/types" target="" role="link"
+																		title="Object types">Object types </a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--magic"></i><span class="apiDocsNav__groupTitleText">Workflows</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/workflows" target="" role="link"
+																		title="Overview">Overview </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Workflows for users
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/workflows" target="" role="link"
+																		title="Introduction">Introduction </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="https://slack.com/slack-tips/workflow-builder-examples"
+																		target="_blank" role="link"
+																		title="Pre-built workflows">Pre-built workflows
+																		<ts-icon class="ts_icon_external_link">
+																		</ts-icon></a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Workflows for
+																developers</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="https://slack.com/help/articles/360041352714-Create-workflows-using-webhook"
+																		target="_blank" role="link"
+																		title="Webhook triggers">Webhook triggers
+																		<ts-icon class="ts_icon_external_link">
+																		</ts-icon></a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/workflows/steps" target="" role="link"
+																		title="Steps from apps">Steps from apps </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="https://github.com/slackapi/workflow-powerups"
+																		target="_blank" role="link"
+																		title="Workflow Powerups">Workflow Powerups
+																		<ts-icon class="ts_icon_external_link">
+																		</ts-icon></a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Reference</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/workflows/configuration-view"
+																		target="" role="link"
+																		title="Configuration views">Configuration views
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/workflows/workflow_step"
+																		target="" role="link"
+																		title="workflow_step">workflow_step </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/reference/workflows/workflow_step_edit"
+																		target="" role="link"
+																		title="workflow_step_edit">workflow_step_edit
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events/workflow_step_execute" target=""
+																		role="link"
+																		title="workflow_step_execute">workflow_step_execute
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events/workflow_published" target=""
+																		role="link"
+																		title="workflow_published">workflow_published
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events/workflow_unpublished" target=""
+																		role="link"
+																		title="workflow_unpublished">workflow_unpublished
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events/workflow_deleted" target=""
+																		role="link"
+																		title="workflow_deleted">workflow_deleted </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/events/workflow_step_deleted" target=""
+																		role="link"
+																		title="workflow_step_deleted">workflow_step_deleted
+																	</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--building"></i><span class="apiDocsNav__groupTitleText">Enterprise</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Single-workspace apps
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/grid" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/grid/developing" target=""
+																		role="link" title="Preparing your app">Preparing
+																		your app </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/grid/testing" target=""
+																		role="link"
+																		title="Testing an Enterprise app">Testing an
+																		Enterprise app </a></li>
+															</ul>
+														</div>
+														<div class="apiDocsNav__subItem">
+															<h4 class="apiDocsNav__subItemTitle">Organization-wide apps
+															</h4>
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps/prereqs" target=""
+																		role="link"
+																		title="Preparing for org-wide app deployment">Preparing
+																		for org-wide app deployment </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps/changes-install"
+																		target="" role="link"
+																		title="OAuth &amp; Installation for org-wide apps">OAuth
+																		&amp; Installation for org-wide apps </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps/changes-apis" target=""
+																		role="link"
+																		title="Using APIs with org-wide apps">Using APIs
+																		with org-wide apps </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps/migration" target=""
+																		role="link" title="Migration">Migration </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/enterprise/apps/reference" target=""
+																		role="link" title="Reference">Reference </a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsToggler">
+													<div tabindex="0"
+														class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--filters"></i><span class="apiDocsNav__groupTitleText">Apps for Admins</span>
+													</div>
+													<div class="apiDocsNav__groupContent apiDocsToggler__target">
+														<div class="apiDocsNav__subItem">
+															<ul class="apiDocsNav__subItemList">
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins" target="" role="link"
+																		title="Overview">Overview </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/channels" target="" role="link"
+																		title="Managing channels">Managing channels </a>
+																</li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/approvals" target="" role="link"
+																		title="Managing app approvals">Managing app
+																		approvals </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/workspaces" target="" role="link"
+																		title="Managing users">Managing users </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/inviting" target="" role="link"
+																		title="Managing invite requests">Managing invite
+																		requests </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/methods/admin.users.session.reset"
+																		target="" role="link"
+																		title="Resetting sessions">Resetting sessions
+																	</a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/scim" target="" role="link"
+																		title="Provisioning with SCIM">Provisioning with
+																		SCIM </a></li>
+																<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+																		href="/admins/audit-logs" target="" role="link"
+																		title="Audit Logs API">Audit Logs API </a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="apiDocsNav__group apiDocsNav__group--reference">
+													<div class="apiDocsNav__groupTitle">
+														<i class="c-icon c-icon--inline c-icon--inherit c-icon--code"></i><a
+															role="link" class="apiDocsNav__groupTitleText"
+															href="/reference">Reference</a></div>
+												</div>
+											</div>
+										</div>
+										<div class="apiDocsNav__extras">
+											<div class="apiDocsNav__subItem">
+												<ul class="apiDocsNav__subItemList">
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/changelog" target="" role="link"
+															title="Changelog">Changelog </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/developer-beta" target="" role="link"
+															title="Beta features">Beta features </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://medium.com/slack-developer-blog" target=""
+															role="link" title="Developer blog">Developer blog </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/roadmap" target="" role="link"
+															title="Roadmap">Roadmap </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://twitter.com/slackapi" target="" role="link"
+															title="@SlackAPI">@SlackAPI </a></li>
+												</ul>
+											</div>
+											<div class="apiDocsNav__subItem">
+												<h4 class="apiDocsNav__subItemTitle">Resources</h4>
+												<ul class="apiDocsNav__subItemList">
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/tools" target="" role="link" title="Our tools">Our
+															tools </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/support" target="" role="link"
+															title="Get support">Get support </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://slack.com/partners" target="" role="link"
+															title="Partner with us">Partner with us </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/lang/ja-jp" target="" role="link"
+															title="🇯🇵  日本語">🇯🇵 日本語 </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://slack.com/terms-of-service/api" target=""
+															role="link" title="API Terms of Service">API Terms of
+															Service </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://slack.com/developers/fund" target=""
+															role="link" title="Slack Fund">Slack Fund </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/faq" target="" role="link" title="FAQ">FAQ </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://slack.engineering" target="" role="link"
+															title="Slack Engineering">Slack Engineering </a></li>
+												</ul>
+											</div>
+											<div class="apiDocsNav__subItem">
+												<h4 class="apiDocsNav__subItemTitle">Community</h4>
+												<ul class="apiDocsNav__subItemList">
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://forums.slackcommunity.com?utm_source=apislack"
+															target="" role="link" title="Community Discussion">Community
+															Discussion </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/community" target="" role="link"
+															title="Tools and resources">Tools and resources </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="https://slackcommunity.com?utm_medium=referral&amp;utm_source=apislack&amp;utm_campaign=fy20-Q103-spclaunch"
+															target="" role="link" title="Groups and events">Groups and
+															events </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/community/code-of-conduct" target="" role="link"
+															title="Code of Conduct">Code of Conduct </a></li>
+													<li><a class="apiDocsNav__subItemLink apiDocsNav__subItemLink--travelling"
+															href="/docs/hosting" target="" role="link"
+															title="Hosting providers">Hosting providers </a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="apiDocsNav__helpLink">
+											<p><a data-gtm-click="APIGetHelp"
+													data-clog-event="APP_DIRECTORY_WEBSITE_CLICK"
+													data-clog-params="click_target=api_nav_get_help_btn"
+													href="/support?ref=api_nav"
+													class="c-link c-button c-button--primary c-button--medium">Get
+													Help</a></p>
+										</div>
+									</nav>
+								</div>
+							</div>
+						</div>
+						<div tabindex="0" role="button" aria-expanded="false"
+							class="apiDocsHeaderNav__item apiDocsHovercard apiDocsHeaderNav__item--tutorials">
+							<span class="apiDocsHovercard__trigger"><a data-qa="tutorials" href="/tutorials">Tutorials</a></span>
+							<div class="apiDocsHovercard__target">
+								<div class="apiDocsHovercard__card" tabindex="-1">
+									<span class="apiDocsHovercard__groupTitle"><a data-qa="tutorials" href="/tutorials"><i class="c-icon c-icon--inline c-icon--map"></i>Tutorials</a></span>
+									<div class="apiTracks__list apiTracks__list--minimal">
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_sapphire_blue_bg apiTracks__trackCardInner--sk_sapphire_blue">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_sapphire_blue"><a href="/tutorials/tracks/actionable-notifications">Publish interactive notifications </a></span>
+											</div>
+										</div>
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_lilypad_green_bg apiTracks__trackCardInner--sk_lilypad_green">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_lilypad_green"><a href="/tutorials/tracks/scheduling-messages">Post messages on a schedule </a></span>
+											</div>
+										</div>
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_aubergine_bg apiTracks__trackCardInner--sk_aubergine">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_aubergine"><a href="/tutorials/tracks/collecting-feedback">Collecting product feedback </a></span>
+											</div>
+										</div>
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_just_orange_bg apiTracks__trackCardInner--sk_just_orange">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_just_orange"><a href="/tutorials/tracks/responding-to-app-mentions">Responding to app mentions </a></span>
+											</div>
+										</div>
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_just_orange_bg apiTracks__trackCardInner--sk_just_orange">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_just_orange"><a href="/tutorials/tracks/hello-world-bolt">Hello World Slack app using Bolt </a></span>
+											</div>
+										</div>
+										<div class="apiTracks__trackCard">
+											<div
+												class="apiTracks__trackCardInner apiTracks__trackCardInner--minimal sk_reddish_orange_bg apiTracks__trackCardInner--sk_reddish_orange">
+												<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_reddish_orange"><a href="/tutorials/tracks/getting-a-token">How to quickly get and use a Slack API token </a></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div tabindex="0" role="button" aria-expanded="false"
+							class="apiDocsHeaderNav__item apiDocsHovercard apiDocsHeaderNav__item--apps">
+							<span class="apiDocsHovercard__trigger"><a data-qa="tutorials" href="/tutorials">Your apps</a></span>
+							<div class="apiDocsHovercard__target">
+								<div class="apiDocsHovercard__card" tabindex="-1">
+									<div class="apiDocsHovercard__subtitle apiDocsHeaderNav__loginLink"><a
+											href="https://slack.com/signin">Sign in to Slack to manage apps</a></div>
+								</div>
+							</div>
+						</div>
+						<script>
+							(function () {
+	const headerNav = document.querySelector('.apiDocsHeaderNav');
+	const hovercardHolders = headerNav.querySelectorAll('.apiDocsHovercard');
+	hovercardHolders.forEach((ele) => {
+		ele.classList.add('apiDocsHovercard--disableMobileHover');
+		const trigger = ele.querySelector('.apiDocsHovercard__trigger');
+		trigger.addEventListener('click', () => {
+			const current = document.querySelector('.apiDocsHovercard--current');
+			if (current !== ele) {
+				if (current) {
+					current.classList.remove('apiDocsHovercard--current');
+				}
+				ele.classList.add('apiDocsHovercard--current');
+			}
+		});
+	});
+	const headerNavItems = document.querySelectorAll('.apiDocsHeaderNav__item');
+	headerNavItems.forEach((ele) => {
+		ele.querySelector('a').removeAttribute('href');
+	});
+	headerNav.classList.add('apiDocsHeaderNav--active');
+})();
+						</script>
+					</div>
+					<div data-automount-component="ApiDocsHeaderNav"
+						data-automount-props="{&quot;type&quot;:&quot;homepage&quot;,&quot;items&quot;:[{&quot;label&quot;:&quot;Docs&quot;,&quot;items&quot;:[{&quot;title&quot;:&quot;Start learning&quot;,&quot;url&quot;:&quot;\/start&quot;,&quot;icon&quot;:&quot;map&quot;,&quot;subtitle&quot;:&quot;An introduction to Slack Platform&quot;},{&quot;title&quot;:&quot;Authentication&quot;,&quot;url&quot;:&quot;\/authentication&quot;,&quot;icon&quot;:&quot;lock-large-o&quot;,&quot;subtitle&quot;:&quot;Installation and permissions&quot;},{&quot;title&quot;:&quot;Surfaces&quot;,&quot;url&quot;:&quot;\/surfaces&quot;,&quot;icon&quot;:&quot;gn-menu-small&quot;,&quot;subtitle&quot;:&quot;Where apps live&quot;},{&quot;title&quot;:&quot;Block Kit&quot;,&quot;url&quot;:&quot;\/block-kit&quot;,&quot;icon&quot;:&quot;blocks&quot;,&quot;subtitle&quot;:&quot;Interactive visual components&quot;},{&quot;title&quot;:&quot;Interactivity&quot;,&quot;url&quot;:&quot;\/interactivity&quot;,&quot;icon&quot;:&quot;plug&quot;,&quot;subtitle&quot;:&quot;Inspire and enable interaction&quot;},{&quot;title&quot;:&quot;Messaging&quot;,&quot;url&quot;:&quot;\/messaging&quot;,&quot;icon&quot;:&quot;dm&quot;,&quot;subtitle&quot;:&quot;Converse and collaborate in Slack&quot;},{&quot;title&quot;:&quot;APIs&quot;,&quot;url&quot;:&quot;\/apis&quot;,&quot;icon&quot;:&quot;cogs&quot;,&quot;subtitle&quot;:&quot;Access and update data&quot;},{&quot;title&quot;:&quot;Workflows&quot;,&quot;url&quot;:&quot;\/workflows&quot;,&quot;icon&quot;:&quot;magic&quot;,&quot;subtitle&quot;:&quot;Create steps for Workflow Builder&quot;},{&quot;title&quot;:&quot;Enterprise&quot;,&quot;url&quot;:&quot;\/enterprise&quot;,&quot;icon&quot;:&quot;building&quot;,&quot;subtitle&quot;:&quot;Integrate large organisations&quot;},{&quot;title&quot;:&quot;Apps for Admins&quot;,&quot;url&quot;:&quot;\/admins&quot;,&quot;icon&quot;:&quot;filters&quot;,&quot;subtitle&quot;:&quot;Automate Slack management&quot;}],&quot;type&quot;:&quot;docs&quot;,&quot;baseUrl&quot;:&quot;\/docs&quot;,&quot;headerItem&quot;:{&quot;title&quot;:&quot;Developer guides and docs&quot;,&quot;url&quot;:&quot;\/docs&quot;,&quot;icon&quot;:&quot;book&quot;},&quot;footerItems&quot;:[{&quot;title&quot;:&quot;Reference guides&quot;,&quot;url&quot;:&quot;\/reference&quot;},{&quot;title&quot;:&quot;Web API methods&quot;,&quot;url&quot;:&quot;\/methods&quot;},{&quot;title&quot;:&quot;Event types&quot;,&quot;url&quot;:&quot;\/events&quot;},{&quot;title&quot;:&quot;Permission scopes&quot;,&quot;url&quot;:&quot;\/scopes&quot;}]},{&quot;label&quot;:&quot;Tutorials&quot;,&quot;items&quot;:[{&quot;title&quot;:&quot;Publish interactive notifications&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/actionable-notifications&quot;,&quot;color&quot;:&quot;sk_sapphire_blue&quot;},{&quot;title&quot;:&quot;Post messages on a schedule&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/scheduling-messages&quot;,&quot;color&quot;:&quot;sk_lilypad_green&quot;},{&quot;title&quot;:&quot;Collecting product feedback&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/collecting-feedback&quot;,&quot;color&quot;:&quot;sk_aubergine&quot;},{&quot;title&quot;:&quot;Responding to app mentions&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/responding-to-app-mentions&quot;,&quot;color&quot;:&quot;sk_just_orange&quot;},{&quot;title&quot;:&quot;Hello World Slack app using Bolt&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/hello-world-bolt&quot;,&quot;color&quot;:&quot;sk_just_orange&quot;},{&quot;title&quot;:&quot;How to quickly get and use a Slack API token&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/getting-a-token&quot;,&quot;color&quot;:&quot;sk_reddish_orange&quot;},{&quot;title&quot;:&quot;Posting messages using curl&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/posting-messages-with-curl&quot;,&quot;color&quot;:&quot;sk_sapphire_blue&quot;},{&quot;title&quot;:&quot;Create tests for your functions&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/testing-functions&quot;,&quot;color&quot;:&quot;blueberry&quot;},{&quot;title&quot;:&quot;Create an incident&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/create-incident&quot;,&quot;color&quot;:&quot;sk_raspberry_red&quot;},{&quot;title&quot;:&quot;How to store and retrieve data from Slack hosted tables&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/read_write_to_hosted_database&quot;,&quot;color&quot;:&quot;sk_indigo&quot;},{&quot;title&quot;:&quot;Send and receive metadata events&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/metadata-event&quot;,&quot;color&quot;:&quot;sk_sapphire_blue&quot;},{&quot;title&quot;:&quot;Managing app deployment and Admin Approved Apps&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/app-deployment-and-admin-controls&quot;,&quot;color&quot;:&quot;brightGreen&quot;},{&quot;title&quot;:&quot;Using Slack Built-in functions&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/using-built-in-functions&quot;,&quot;color&quot;:&quot;sk_lilypad_green&quot;},{&quot;title&quot;:&quot;Build multiple versions of your app from a single code base&quot;,&quot;url&quot;:&quot;\/tutorials\/tracks\/multiple-envs&quot;,&quot;color&quot;:&quot;sk_raspberry_red&quot;}],&quot;type&quot;:&quot;tutorials&quot;,&quot;baseUrl&quot;:&quot;\/tutorials&quot;,&quot;headerItem&quot;:{&quot;title&quot;:&quot;Tutorials&quot;,&quot;url&quot;:&quot;\/tutorials&quot;,&quot;icon&quot;:&quot;map&quot;}},{&quot;label&quot;:&quot;Your apps&quot;,&quot;items&quot;:[{&quot;title&quot;:&quot;Sign in to Slack to manage apps&quot;,&quot;url&quot;:&quot;https:\/\/slack.com\/&quot;}],&quot;type&quot;:&quot;apps&quot;,&quot;baseUrl&quot;:&quot;\/apps&quot;}]}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div id="page" class="apiDocsLayout__container">
+		<div class="apiDocsLayout__gridWrapper">
+			<div class="apiDocsLayout__gridMainContent">
+				<div class="apiHome">
+					<div class="apiHome__heroContainer"><svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1749.28 514.49"
+							preserveAspectRatio="xMidYMid slice" class="apiHome__heroBg">
+							<g id="type6">
+								<rect class="cls-1" x="1138.99" width="158.1" height="39.54" rx="19.77"></rect>
+								<path class="cls-1"
+									d="M1749.28,39.49H1555.15a19.77,19.77,0,0,1-19.76-19.77h0A19.77,19.77,0,0,1,1555.15,0h194.13Z"
+									transform="translate(0 0.05)"></path>
+								<rect class="cls-1" x="1403.24" y="0" width="39.54" height="39.54" rx="19.77"
+									transform="translate(2846.03 39.49) rotate(180)"></rect>
+								<rect class="cls-1" x="402.2" width="183.81" height="39.54" rx="19.77"></rect>
+								<rect class="cls-1" x="429.07" y="237.83" width="209.82" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-1" x="1222.22" y="317.51" width="393.9" height="39.54" rx="19.77">
+								</rect>
+								<path class="cls-2"
+									d="M1165.33,357h-19.77V337.23a19.77,19.77,0,0,1,19.77-19.77h0a19.77,19.77,0,0,1,19.77,19.77h0A19.77,19.77,0,0,1,1165.33,357Z"
+									transform="translate(0 0.05)"></path>
+								<polygon class="cls-1" points="609.62 355.55 629.34 335.83 609.62 316.12 609.62 355.55">
+								</polygon>
+								<path class="cls-1"
+									d="M1749.28,197.48h0a19.71,19.71,0,0,1-19.72-19.71h0a19.72,19.72,0,0,1,19.72-19.72h0"
+									transform="translate(0 0.05)"></path>
+								<path class="cls-1"
+									d="M165.5,198.73H0V159.2H165.5A19.78,19.78,0,0,1,185.29,179h0A19.78,19.78,0,0,1,165.5,198.73Z"
+									transform="translate(0 0.05)"></path>
+								<polygon class="cls-1" points="775.1 276.12 794.82 256.4 775.1 236.69 775.1 276.12">
+								</polygon>
+								<path class="cls-1"
+									d="M794.11,474.9h0a19.77,19.77,0,0,1,19.77,19.77v19.77a0,0,0,0,1,0,0H794.11a19.77,19.77,0,0,1-19.77-19.77v0A19.77,19.77,0,0,1,794.11,474.9Z"
+									transform="translate(1588.22 989.4) rotate(-180)"></path>
+								<path class="cls-1"
+									d="M1505.93,474.9h223.58a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77H1505.93a0,0,0,0,1,0,0V474.9A0,0,0,0,1,1505.93,474.9Z"
+									transform="translate(3255.21 989.4) rotate(-180)"></path>
+								<rect class="cls-1" x="307.69" y="395.8" width="314.03" height="39.54" rx="19.77">
+								</rect>
+							</g>
+							<g id="type5">
+								<path class="cls-3"
+									d="M0,0H142.67a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z">
+								</path>
+								<rect class="cls-3" x="308.5" y="159.25" width="666.68" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-3" x="505.44" y="474.95" width="223.88" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-3" x="919.34" y="395.92" width="267.38" height="39.54" rx="19.77"
+									transform="translate(2106.07 831.42) rotate(-180)"></rect>
+								<polygon class="cls-3"
+									points="1317.81 395.97 1298.04 415.74 1317.81 435.5 1317.81 395.97"></polygon>
+								<rect class="cls-3" x="999.2" y="79.91" width="208.77" height="39.54" rx="19.77"></rect>
+								<polygon class="cls-3" points="840.37 80.07 820.6 99.84 840.37 119.61 840.37 80.07">
+								</polygon>
+							</g>
+							<g id="type4">
+								<polygon class="cls-4" points="1493.7 0 1473.93 19.77 1493.7 39.54 1493.7 0"></polygon>
+								<path class="cls-4"
+									d="M935.87,237.61h793.64a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77H935.87a0,0,0,0,1,0,0V237.61A0,0,0,0,1,935.87,237.61Z"
+									transform="translate(2685.15 514.81) rotate(-180)"></path>
+								<polygon class="cls-4" points="384.01 237.82 364.25 257.59 384.01 277.36 384.01 237.82">
+								</polygon>
+								<path class="cls-4"
+									d="M19.77,237.78H255.66a0,0,0,0,1,0,0v39.54a0,0,0,0,1,0,0H19.77A19.77,19.77,0,0,1,0,257.55v0A19.77,19.77,0,0,1,19.77,237.78Z"
+									transform="translate(255.66 515.14) rotate(180)"></path>
+								<polygon class="cls-4"
+									points="1747.17 316.12 1727.46 335.83 1747.17 355.55 1747.17 316.12"></polygon>
+								<path class="cls-4" d="M768.36,316.1l19.77,19.77-19.77,19.77Z"
+									transform="translate(0 0.05)"></path>
+								<rect class="cls-4" x="62.22" y="474.95" width="308.4" height="39.54" rx="19.77"></rect>
+								<polygon class="cls-4" points="678.3 395.8 658.53 415.57 678.3 435.34 678.3 395.8">
+								</polygon>
+								<rect class="cls-4" x="719.49" y="395.92" width="101.04" height="39.54" rx="19.77"
+									transform="translate(1540.01 831.42) rotate(-180)"></rect>
+								<rect class="cls-4" x="1359.01" y="395.92" width="85.13" height="39.54" rx="19.77"
+									transform="translate(2803.14 831.42) rotate(-180)"></rect>
+								<rect class="cls-4" x="873.19" y="79.7" width="82.45" height="39.54" rx="19.77"
+									transform="translate(1828.82 198.98) rotate(180)"></rect>
+								<rect class="cls-4" x="146.36" y="80.07" width="553.1" height="39.54" rx="19.77"></rect>
+							</g>
+							<g id="type3">
+								<path class="cls-5"
+									d="M1076.4,0h0a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77h-19.77a0,0,0,0,1,0,0V19.77A19.77,19.77,0,0,1,1076.4,0Z">
+								</path>
+								<path class="cls-5"
+									d="M0,317.51H147.77a19.77,19.77,0,0,1,19.77,19.77v0A19.77,19.77,0,0,1,147.77,357H0a0,0,0,0,1,0,0V317.51A0,0,0,0,1,0,317.51Z">
+								</path>
+								<rect class="cls-5" x="1111.66" y="159.08" width="450.15" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-5" x="1053.51" y="315.98" width="39.54" height="39.54"></rect>
+								<rect class="cls-5" x="228.18" y="395.97" width="39.54" height="39.54"></rect>
+								<path class="cls-5"
+									d="M1564.16,395.92h165.35a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77H1564.16a0,0,0,0,1,0,0V395.92a0,0,0,0,1,0,0Z"
+									transform="translate(3313.44 831.42) rotate(-180)"></path>
+								<rect class="cls-5" x="1708.93" y="78.57" width="39.78" height="39.43"></rect>
+							</g>
+							<g id="type2">
+								<rect class="cls-6" x="270.06" y="0" width="39.54" height="39.54" rx="19.77"
+									transform="translate(579.65 39.49) rotate(180)"></rect>
+								<rect class="cls-6" x="295.8" y="237.78" width="39.54" height="39.54" rx="19.77"
+									transform="translate(631.14 515.14) rotate(-180)"></rect>
+								<rect class="cls-6" x="1657.42" y="317.51" width="39.54" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-6" x="514.63" y="317.51" width="39.54" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-6" x="1590.32" y="159.08" width="39.54" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-6" x="227.32" y="159.25" width="39.54" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-6" x="680.1" y="238.08" width="39.54" height="39.54" rx="19.77"></rect>
+								<rect class="cls-6" x="422.25" y="474.95" width="39.54" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-6" x="1221.05" y="395.92" width="39.54" height="39.54" rx="19.77"
+									transform="translate(2481.64 831.42) rotate(180)"></rect>
+								<rect class="cls-6" x="0.11" y="80.07" width="39.54" height="39.54" rx="19.77"></rect>
+								<rect class="cls-6" x="1245.6" y="79.91" width="39.54" height="39.54" rx="19.77"></rect>
+								<rect class="cls-6" x="751.56" y="80.02" width="39.54" height="39.54" rx="19.77"
+									transform="translate(1542.66 199.64) rotate(180)"></rect>
+								<rect class="cls-6" x="1416.12" y="474.9" width="39.54" height="39.54" rx="19.77"
+									transform="translate(2871.78 989.4) rotate(-180)"></rect>
+							</g>
+							<g id="type1">
+								<path class="cls-7"
+									d="M1337.68,0h19.77a19.77,19.77,0,0,1,19.77,19.77h0a19.77,19.77,0,0,1-19.77,19.77h0a19.77,19.77,0,0,1-19.77-19.77Z"
+									transform="translate(0 0.05)"></path>
+								<path class="cls-7"
+									d="M204.5,0h19.77A19.77,19.77,0,0,1,244,19.72h0a19.77,19.77,0,0,1-19.76,19.77h0A19.77,19.77,0,0,1,204.5,19.72Z"
+									transform="translate(0 0.05)"></path>
+								<rect class="cls-7" x="628.46" width="389.81" height="39.54" rx="19.77"></rect>
+								<rect class="cls-7" x="199.63" y="317.51" width="266.46" height="39.54" rx="19.77">
+								</rect>
+								<path class="cls-7"
+									d="M1663.08,159h19.77a19.77,19.77,0,0,1,19.77,19.77h0a19.77,19.77,0,0,1-19.77,19.77h0a19.77,19.77,0,0,1-19.77-19.77Z"
+									transform="translate(0 0.05)"></path>
+								<rect class="cls-7" x="834.72" y="316.15" width="177.15" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-7" x="676.15" y="316.15" width="39.54" height="39.54"></rect>
+								<rect class="cls-7" x="841.63" y="236.72" width="39.54" height="39.54"></rect>
+								<rect class="cls-7" x="863" y="474.95" width="504.82" height="39.54" rx="19.77"></rect>
+								<path class="cls-7"
+									d="M162.09,435.29H0V395.75H162.09a19.77,19.77,0,0,1,19.78,19.77h0A19.77,19.77,0,0,1,162.09,435.29Z"
+									transform="translate(0 0.05)"></path>
+								<path class="cls-7"
+									d="M877.39,395.92h0a19.77,19.77,0,0,1,19.77,19.77v0a19.77,19.77,0,0,1-19.77,19.77H857.62a0,0,0,0,1,0,0V415.69A19.77,19.77,0,0,1,877.39,395.92Z"
+									transform="translate(1754.77 831.42) rotate(180)"></path>
+								<path class="cls-7"
+									d="M1501,395.92h0a19.77,19.77,0,0,1,19.77,19.77v0A19.77,19.77,0,0,1,1501,435.45h-19.77a0,0,0,0,1,0,0V415.69A19.77,19.77,0,0,1,1501,395.92Z"
+									transform="translate(3001.99 831.42) rotate(180)"></path>
+								<path class="cls-7"
+									d="M109.18,119.56H89.41A19.77,19.77,0,0,1,69.64,99.79h0A19.77,19.77,0,0,1,89.41,80h0a19.77,19.77,0,0,1,19.77,19.77Z"
+									transform="translate(0 0.05)"></path>
+								<rect class="cls-7" x="1327.19" y="79.91" width="348.53" height="39.54" rx="19.77">
+								</rect>
+								<rect class="cls-7" x="1019.54" y="159.08" width="39.54" height="39.54"></rect>
+							</g>
+						</svg>
+						<div class="apiHome__heroBgMask"></div>
+						<div class="apiHome__hero">
+							<h1><em>Customize</em> your workspace</h1>
+							<div class="apiHome__heroSubtitle">Connect, simplify, and automate your work with Slack
+								apps.</div>
+							<div class="apiHome__heroCTAButtons"><a
+									class="apiDocsButton apiDocsButton--medium apiDocsButton--inline apiDocsButton--noOutline"
+									href="/apps?new_app=1" data-clog-event="APP_CREATE_APIHOME_CLICK"
+									data-clog-params="click_target=api_home_start_building_btn"
+									data-gtm-click="APIHomeStartBuilding">Create an app</a><a
+									class="apiDocsButton apiDocsButton--medium apiDocsButton--inline apiDocsButton--outlineOnly"
+									href="/workflows" data-clog-params="click_target=api_home_workflows_btn"
+									data-gtm-click="APIHomeExploreWorkflows">Explore workflows</a><a
+									class="apiDocsButton apiDocsButton--medium apiDocsButton--inline apiDocsButton--outlineOnly"
+									href="https://slack.com/apps"
+									data-clog-params="click_target=api_home_app_directory_btn"
+									data-gtm-click="APIHomeAppDirectoryLink">Browse App Directory</a></div>
+						</div>
+					</div>
+					<section class="apiHome__section apiHome__section--light apiHome__section--cta">
+						<div
+							class="apiHome__cta apiDocsLayoutColumns apiDocsLayoutColumns--twoCol apiDocsLayoutColumns--leftBias apiDocsLayoutColumns--medGap">
+							<div
+								class="apiHome__ctaText apiDocsLayoutColumn__column apiDocsLayoutColumn__column--noBorder apiDocs__marginRight--large">
+								<h2>Save time and automate repetitive tasks</h2>
+								<div class="apiHome__ctaLede">
+									<p>Turn slow, repetitive, manual processes, like onboarding or gathering feedback,
+										into rapid and automated apps and workflows.</p>
+									<p>Use <a class="bold" href="/tools/bolt">Bolt</a> or <a class="bold"
+											href="/workflows">Workflow Builder</a> to quickly transform the way you
+										work.</p>
+								</div>
+								<div class="apiHome__showcase apiDocs__marginTop">
+									<div class="apiHome__showcaseDescription">
+										<p><span class="bold apiHome__showcasePartnerName">Nine Publishing</span> used
+											<a class="bold" target="_blank"
+												href="//slack.com/customer-stories/nine-publishing-division-breaks-news-faster">custom
+												tools and apps</a> to simplify newsroom processes and monitor
+											performance analytics.</p>
+									</div>
+									<div class="apiHome__showcaseStats">
+										<div class="apiHome__showcaseStat">
+											<i class="c-icon c-icon--history c-icon--inline c-icon--inherit apiHome__showcaseStatIcon--sk_aubergine"></i>
+											<div>Reduced day-long processes to 30 minutes</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div
+								class="apiHome__ctaImage apiDocsLayoutColumn__column apiDocsLayoutColumn__column--noBorder">
+								<img src="/img/api/homepage_discover/wfb_apps.svg"></div>
+							</div>
+					</section>
+					<section class="apiHome__section apiHome__section--blue apiHome__section--cta">
+						<div
+							class="apiHome__cta apiDocsLayoutColumns apiDocsLayoutColumns--twoCol apiDocsLayoutColumns--rightBias">
+							<div class="apiHome__ctaImage"><img src="/img/api/homepage_discover/bk_mobile.svg"></div>
+								<div class="apiHome__ctaText">
+									<h2>Your work just <em>works</em>, on any device</h2>
+									<div class="apiHome__ctaLede">
+										<p><a class="bold" href="/block-kit">Block Kit</a> lets you build UIs without a
+											UI designer. It’s available for use in <a class="bold" href="/surfaces">app
+												surfaces</a> across all devices without any extra code.</p>
+										<p>Build and prototype UIs in seconds using our Block Kit Builder tool.</p>
+									</div>
+									<div class="apiHome__showcase apiDocs__marginTop">
+										<div class="apiHome__showcaseDescription">
+											<p><span class="bold apiHome__showcasePartnerName">TD Ameritrade</span>
+												built a Slack app called <a class="bold" target="_blank"
+													href="https://slack.com/customer-stories/td-ameritrade">BetterBot</a>
+												to source fast, automated answers to common questions.</p>
+										</div>
+										<div class="apiHome__showcaseStats">
+											<div class="apiHome__showcaseStat">
+												<i class="c-icon c-icon--phone c-icon--inline c-icon--inherit  apiHome__showcaseStatIcon--sk_sunshine_yellow"></i>
+												<div>Reduced support tickets by 2500 per week</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+					</section>
+					<section class="apiHome__section apiHome__section--cta apiHome__section--light">
+						<div
+							class="apiHome__cta apiDocsLayoutColumns apiDocsLayoutColumns--twoCol apiDocsLayoutColumns--leftBias">
+							<div class="apiHome__ctaText">
+								<h2>Minimize multitasking</h2>
+								<div class="apiHome__ctaLede ">
+									<p>Reduce the number of apps and websites needed to get work done.</p>
+									<p>Bring data and tasks from external services and internal tools to where everyone
+										is already collaborating: Slack.</p>
+								</div>
+								<div class="apiHome__showcase apiDocs__marginTop">
+									<div class="apiHome__showcaseDescription">
+										<p><span class="bold apiHome__showcasePartnerName">Hearst</span> used their <a
+												target="_blank" class="bold"
+												href="https://slack.com/customer-stories/hearst">HANS Bot</a> to quickly
+											surface data to decide which stories will perform best. HANS saved the team
+											hours per day on searching for custom reports.</p>
+									</div>
+									<div class="apiHome__showcaseStats">
+										<div class="apiHome__showcaseStat">
+											<i class="c-icon c-icon--eye c-icon--inherit c-icon--inline apiHome__showcaseStatIcon--sk_sapphire_blue"></i>
+											<div>Drove a 50% increase in YouTube views</div>
+										</div>
+										<div class="apiHome__showcaseStat">
+											<i class="c-icon c-icon--cogs c-icon--inherit c-icon--inline apiHome__showcaseStatIcon--sk_reddish_orange"></i>
+											<div>Automatically handle 3800 inquiries per week</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="apiHome__ctaImage apiHome__ctaImageGrid apiHome__ctaImageGrid--top">
+								<img src="https://a.slack-edge.com/9aa96/img/api/homepage_example_hiretron.png" srcset="https://a.slack-edge.com/9aa96/img/api/homepage_example_hiretron.png 1x, https://a.slack-edge.com/9aa96/img/api/homepage_example_hiretron@2x.png 2x"><img src="https://a.slack-edge.com/9aa96/img/api/homepage_example_visitbot.png" srcset="https://a.slack-edge.com/9aa96/img/api/homepage_example_visitbot.png 1x, https://a.slack-edge.com/9aa96/img/api/homepage_example_visitbot@2x.png 2x"></div>
+							</div>
+					</section>
+					<section class="apiHome__section apiHome__section--purple apiHome__section--cta">
+						<div class="apiHome__cta apiHome__sectionHolder">
+							<div class="apiHome__ctaText">
+								<h2>Built for builders</h2>
+								<div
+									class="apiHome__ctaLede apiDocsLayoutColumns apiDocsLayoutColumns--fourCol apiDocsLayoutColumns--largeGap">
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols"><a
+											href="/workflows"><i class="c-icon c-icon--magic c-icon--inherit"></i></a><span><h3><a href="/workflows">No code workflows</a></h3>To automate easily, no code required, try <a class="bold" href="/workflows">Workflow Builder</a>.</span>
+									</div>
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols"><a
+											href="/bolt"><img src="/img/api/bolt/bolt-logo.svg"></a><span><h3><a href="/bolt">Solid foundations</a></h3>To tinker with advanced customizations, start quickly by using our <a class="bold" href="/bolt">Bolt framework</a>.</span>
+									</div>
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols"><a
+											href="/methods"><i class="c-icon c-icon--codeblock c-icon--inherit"></i></a><span><h3><a href="/methods">Explore what's possible</a></h3>Use testers on our <a href="/methods">API method references</a> to browse and try the range of app capabilities.</span>
+									</div>
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols"><a
+											href="/tools"><i class="c-icon c-icon--wrench c-icon--inherit"></i></a><span><h3><a href="/tools">Tools for every purpose</a></h3>No matter how you choose to build, use our official and community tools to make the process simpler.</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="apiHome__section apiHome__section--green apiHome__section--cta">
+						<div class="apiHome__cta apiHome__sectionHolder">
+							<div class="apiHome__ctaText">
+								<h2>Distribute apps to grow your business</h2>
+								<div class="apiHome__ctaLede apiDocsLayoutColumns apiDocsLayoutColumns--largeGap">
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols">
+										<i class="c-icon c-icon--search c-icon--inherit"></i><span><h3>Spark discovery</h3><a href="https://slack.com/apps">Put your app</a> in front of millions of Slack users. Expand your reach by <a href="/start/distributing/directory">distributing your app</a> in the App Directory.</span>
+									</div>
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols">
+										<i class="c-icon c-icon--eye c-icon--inherit"></i><span><h3>Stay top-of-mind</h3>Meet users where they’re most engaged throughout the day — in Slack — with interactive app experiences.</span>
+									</div>
+									<div class="apiDocsLayoutColumn__column apiHome__ctaCol apiHome__flexCols">
+										<i class="c-icon c-icon--rocket c-icon--inherit"></i><span><h3>Broaden engagement</h3>Share your <a href="/workflows">app's workflow steps</a> with users, empowering them to integrate your services into everyday processes.</span>
+									</div>
+								</div>
+							</div>
+							<div class="apiHome__showcase apiDocs__marginTop">
+								<div class="apiHome__showcaseDescription">
+									<p><span class="bold apiHome__showcasePartnerName">Zapier</span> <a target="_blank"
+											class="bold"
+											href="https://slack.com/blog/productivity/zapier-unlocks-growth-by-building-on-top-of-slack?utm_source=slackapi&utm_medium=homepage">upgraded
+											their App Directory app</a> to allow users to create complex automations -
+										with no code - using Slack Workflow Builder and Zapier’s 3,000+ partner apps.
+										Zapier also added an App Home to allow users to build automated workflows
+										directly in Slack.</p>
+								</div>
+								<div class="apiHome__showcaseStats">
+									<div class="apiHome__showcaseStat">
+										<i class="c-icon c-icon--bolt c-icon--inherit c-icon--inline apiHome__showcaseStatIcon--sk_frosty_blue"></i>
+										<div>Slack users automate more than 500,000 routine actions per day with Zapier
+										</div>
+									</div>
+									<div class="apiHome__showcaseStat">
+										<i class="c-icon c-icon--rocket c-icon--inherit c-icon--inline apiHome__showcaseStatIcon--sk_sunshine_yellow"></i>
+										<div>Users of the Slack app are 10% more likely to convert to paid users at
+											Zapier</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="apiHome__section apiHome__section--light apiHome__section--cta">
+						<h2>Tutorials to spark inspiration</h2>Browse our library of tutorials that start from a range
+						of common app scenarios.<div
+							class="apiHome__ctaTrackList apiDocs__marginTop apiDocs__marginTop--large">
+							<div class="apiTracks__list apiTracks__list--normal">
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_sapphire_blue_bg  apiTracks__trackCardInner--sk_sapphire_blue">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_sapphire_blue"><a href="/tutorials/tracks/actionable-notifications">Publish interactive notifications<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_lilypad_green_bg  apiTracks__trackCardInner--sk_lilypad_green">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_lilypad_green"><a href="/tutorials/tracks/scheduling-messages">Post messages on a schedule<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_aubergine_bg  apiTracks__trackCardInner--sk_aubergine">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_aubergine"><a href="/tutorials/tracks/collecting-feedback">Collecting product feedback<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_just_orange_bg  apiTracks__trackCardInner--sk_just_orange">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_just_orange"><a href="/tutorials/tracks/responding-to-app-mentions">Responding to app mentions<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_just_orange_bg  apiTracks__trackCardInner--sk_just_orange">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_just_orange"><a href="/tutorials/tracks/hello-world-bolt">Hello World Slack app using Bolt<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_reddish_orange_bg  apiTracks__trackCardInner--sk_reddish_orange">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_reddish_orange"><a href="/tutorials/tracks/getting-a-token">How to quickly get and use a Slack API token<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner sk_sapphire_blue_bg  apiTracks__trackCardInner--sk_sapphire_blue">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--sk_sapphire_blue"><a href="/tutorials/tracks/posting-messages-with-curl">Posting messages using curl<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+								<div class="apiTracks__trackCard">
+									<div
+										class="apiTracks__trackCardInner blueberry_bg  apiTracks__trackCardInner--blueberry">
+										<span class="apiTracks__trackTitle apiTracks__trackTitle--blueberry"><a href="/tutorials/tracks/testing-functions">Create tests for your functions<i class="c-icon c-icon--arrow-circle-o-right"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p class="apiDocs__marginTop apiDocs__marginTop--large"><a
+								class="apiDocsButton apiDocsButton--small apiDocsButton--highlight apiDocsButton--chevron"
+								href="/tutorials">View more tutorials</a></p>
+					</section>
+					<section class="apiHome__section apiDocs__section--explore">
+						<h2>Updates from us</h2>
+						<div
+							class="apiDocs__sectionHolder apiDocsLayoutColumns apiDocsLayoutColumns--twoCol apiDocsLayoutColumns--largeGap">
+							<div class="apiDocsLayoutColumn__column apiHome__exploreListContainer">
+								<section class="apiHome__updateSection">
+									<h3><a href="/changelog"><i class="c-icon c-icon--history c-icon--inline c-icon--inherit"></i>Developer
+											changelog</a></h3>
+									<div class="apiHome__changelog apiChangelog__miniList">
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--APIs apiChangelog__entry--warning">
+											<div class="apiChangelog__date">Nov 30, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>As previously announced, apps &amp; integrations created after
+														today, November 30, 2021, must use <a
+															href="/methods/rtm.connect"><code>rtm.connect</code></a>
+														instead of the deprecated <code>rtm.start</code> when connecting
+														to the RTM API. <a
+															href="/changelog/2021-10-rtm-start-to-stop">Learn more about
+															this and what's next for existing users of
+															<code>rtm.start</code></a>.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--Apps apiChangelog__entry--new_feature">
+											<div class="apiChangelog__date">Nov 24, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>Block elements can now utilize the <a
+															href="/reference/block-kit/block-elements"><code>focus_on_load</code></a>
+														field within Block kit messages, which allows you to pick one
+														specific Block element to auto focus on. <a
+															href="/reference/block-kit/block-elements">Learn more</a>.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--APIs apiChangelog__entry--warning">
+											<div class="apiChangelog__date">Nov 18, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>The default Slack Connect invitation type when using <a
+															href="/methods/conversations.inviteShared"><code>conversations.inviteShared</code></a>
+														has changed. Invites are now sent to limit the recipient's
+														actions to only sending messages. The new
+														<code>external_limited</code> argument can be used to control
+														which invitation type is sent.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--APIs apiChangelog__entry--new_feature">
+											<div class="apiChangelog__date">Oct 7, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>We're starting to roll out a new, opt-in beta UI that lets you
+														configure and reconfigure apps using manifests. We're also
+														launching <a href="/reference/manifests#manifest_apis">new App
+															Manifest APIs</a> to let you create and manage all your apps
+														programmatically. <a
+															href="/changelog/2021-10-manifest-a-new-reality">Learn
+															more</a>.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--APIs apiChangelog__entry--warning">
+											<div class="apiChangelog__date">Oct 5, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>One of our earliest API methods is taking a well-deserved
+														retirement on September 30, 2022. For existing apps, <a
+															href="/methods/rtm.start"><code>rtm.start</code></a> will
+														instead return an equivalent response to <a
+															href="/methods/rtm.connect"><code>rtm.connect</code></a>.
+														Beginning November 30, 2021, <em>newly</em> created apps and
+														integrations will <strong>only</strong> be able to use
+														<code>rtm.connect</code>. <a
+															href="/changelog/2021-10-rtm-start-to-stop">Learn more</a>.
+													</p>
+												</div>
+											</div>
+										</div>
+										<div
+											class="apiHome__changelogEntry apiChangelog__entry apiChangelog__entry--APIs apiChangelog__entry--new_feature">
+											<div class="apiChangelog__date">Oct 5, 2021</div>
+											<div class="apiChangelog__body">
+												<div class="apiChangelog__text">
+													<p>Introducing two API methods that return information about
+														workspaces previously only available in <code>rtm.start</code>:
+														<a
+															href="/methods/team.billing.info"><code>team.billing.info</code></a>
+														and <a
+															href="/methods/team.preferences.list"><code>team.preferences.list</code></a>.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+							<div class="apiDocsLayoutColumn__column apiHome__updates">
+								<section class="apiHome__updateSection">
+									<h3><a target="_blank"
+											href="https://medium.com/slack-developer-blog"><i class="c-icon c-icon--comment-alt c-icon--inline c-icon--inherit"></i>Platform
+											blog</a></h3>
+									<div class="apiHome__blog">
+										<div class="apiHome__blogEntry">
+											<div class="apiHome__blogDate">Aug 11, 2021</div>
+											<div class="apiHome__blogText">
+												<h4><a target="_blank"
+														href="https://medium.com/slack-developer-blog/on-the-platform-toast-ceo-engineer-rea-loretta-on-driving-virtual-community-25c4379eb740?source=rss----d76c0605b922---4">On
+														the Platform: Toast CEO &amp;amp; Engineer Rea Loretta on
+														Driving Virtual Community</a></h4>
+											</div>
+										</div>
+										<div class="apiHome__blogEntry">
+											<div class="apiHome__blogDate">Jul 28, 2021</div>
+											<div class="apiHome__blogText">
+												<h4><a target="_blank"
+														href="https://medium.com/slack-developer-blog/on-the-platform-entrepreneur-fractional-cmo-erin-blaskie-on-the-evolution-of-growth-marketing-260d7d049c23?source=rss----d76c0605b922---4">On
+														the Platform: Entrepreneur &amp;amp; Fractional CMO Erin Blaskie
+														on the Evolution of Growth Marketing</a></h4>
+											</div>
+										</div>
+										<div class="apiHome__blogEntry">
+											<div class="apiHome__blogDate">Jul 21, 2021</div>
+											<div class="apiHome__blogText">
+												<h4><a target="_blank"
+														href="https://medium.com/slack-developer-blog/salesforce-acquires-slack-7bd49dd6ea14?source=rss----d76c0605b922---4">Salesforce
+														acquires Slack</a></h4>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+					</section>
+					<section class="apiHome__section apiDocs__section--explore">
+						<h2>Explore the Slack platform</h2>
+						<div class="apiHome__exploreListHolder">
+							<div class="apiSiteExplorer">
+								<div class="apiSiteExplorer__block">
+									<h3>Where apps live</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/surfaces/modals"><span><strong>Modals</strong><p>Focused, flexible dialogs for interaction and information</p></span></a>
+										</li>
+										<li><a
+												href="/surfaces/messages"><span><strong>Messages</strong><p>Converse and collaborate in Slack conversations</p></span></a>
+										</li>
+										<li><a
+												href="/surfaces/tabs"><span><strong>App Home</strong><p>One-to-one, fully-customisable spaces</p></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="apiSiteExplorer__block">
+									<h3>Interactivity and design</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/block-kit"><span><strong>Block Kit</strong><p>Dynamic and interactive visual components for Slack apps</p></span></a>
+										</li>
+										<li><a
+												href="/interactivity/shortcuts"><span><strong>Shortcuts</strong><p>Add app commands to the Slack shortcuts menu</p></span></a>
+										</li>
+										<li><a
+												href="/interactivity/slash-commands"><span><strong>Slash Commands</strong><p>Initiate interaction like the command-line</p></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="apiSiteExplorer__block">
+									<h3>App foundations</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/authentication"><span><strong>Installation and permissions</strong><p>Prepare apps for installation and request access to capabilities</p></span></a>
+										</li>
+										<li><a
+												href="/apis"><span><strong>Slack APIs</strong><p>Our core APIs for apps to access and update data</p></span></a>
+										</li>
+										<li><a
+												href="/apis/connections"><span><strong>Socket mode</strong><p>Use WebSockets to connect to our APIs</p></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="apiSiteExplorer__block">
+									<h3>Communication</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/messaging/managing"><span><strong>Sending and viewing messages</strong><p>Converse and collaborate in Slack conversations</p></span></a>
+										</li>
+										<li><a
+												href="/messaging/files"><span><strong>Files API</strong><p>Upload or link to complex file data</p></span></a>
+										</li>
+										<li><a
+												href="/apis/calls"><span><strong>Calls API</strong><p>Let users quickly join calls on 3rd-party services</p></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="apiSiteExplorer__block">
+									<h3>Tools for builders</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/tools/bolt"><span><strong>Bolt</strong><p>Foundational framework that helps you build apps fast in JavaScript, Python, and Java</p></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="apiSiteExplorer__block">
+									<h3>Managing Slack</h3>
+									<ul class="apiSiteExplorer__blockItems">
+										<li><a
+												href="/admins"><span><strong>Apps for Slack admins</strong><p>Automate management of Slack workspaces and organizations</p></span></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div id="overlay"></div>
+	</div>
+	<footer class="apiDocsFooter">
+		<div class="apiDocsFooter__section apiDocsFooter__section--logo">
+			<div class="apiDocsFooter__logo"><i class="c-icon c-icon--slack-pillow c-icon--inline c-icon--inherit"></i>
+			</div>
+		</div>
+		<div class="apiDocsFooter__section apiDocsFooter__section--features">
+			<h2><a href="/docs">Docs</a></h2>
+			<nav id="docs_nav" class="apiDocsNav">
+				<div class="apiDocsNav__flat">
+					<div class="apiDocsNav__subgroups">
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--map"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/start">Start learning</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--lock-large-o"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/authentication">Authentication</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--gn-menu-small"></i><a
+									role="link" class="apiDocsNav__groupTitleText" href="/surfaces">Surfaces</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--blocks"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/block-kit">Block Kit</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--plug"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/interactivity">Interactivity</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--dm"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/messaging">Messaging</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--cogs"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/apis">APIs</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--magic"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/workflows">Workflows</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--building"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/enterprise">Enterprise</a></div>
+						</div>
+						<div class="apiDocsNav__group">
+							<div
+								class="apiDocsNav__groupTitle apiDocsToggler__toggle apiDocsToggler__toggle--alwaysShow">
+								<i class="c-icon c-icon--inline c-icon--inherit c-icon--filters"></i><a role="link"
+									class="apiDocsNav__groupTitleText" href="/admins">Apps for Admins</a></div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="apiDocsFooter__section apiDocsFooter__section--promo">
+			<div class="apiDocsFooter__column">
+				<h2><a href="/changelog">Keep updated</a></h2>
+				<p>Subscribe to our changelog to see the latest changes to the Slack platform.</p><a
+					class="apiDocsButton apiDocsButton--subscribe" href="/changelog">Subscribe</a>
+			</div>
+			<div class="apiDocsFooter__column">
+				<h2><a target="_blank"
+						href="https://slackcommunity.com/?utm_medium=referral&amp;utm_source=apislack&amp;utm_campaign=api_site_footer">Join
+						our community</a></h2>
+				<p>Connect with other developers, builders, designers, and product managers to build the future of work.
+				</p><a class="apiDocsButton apiDocsButton--join" target="_blank"
+					href="https://slackcommunity.com/?utm_medium=referral&amp;utm_source=apislack&amp;utm_campaign=api_site_footer">Join</a>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript">
+		/**
+ * A placeholder function that the build script uses to
+ * replace file paths with their CDN versions.
+ *
+ * @param {String} file_path - File path
+ * @returns {String}
+ */
+function vvv(file_path) {
+		 var vvv_warning = 'You cannot use vvv on dynamic values. Please make sure you only pass in static file paths.'; if (window.TS && window.TS.warn) { window.TS.warn(vvv_warning); } else { console.warn(vvv_warning); } 
+	return file_path;
+}
+
+var cdn_url = "https:\/\/a.slack-edge.com";
+var vvv_abs_url = "https:\/\/slack.com\/";
+var inc_js_setup_data = {
+	emoji_sheets: {
+		apple: 'https://a.slack-edge.com/80588/img/emoji_2017_12_06/sheet_apple_64_indexed_256.png',
+		google: 'https://a.slack-edge.com/80588/img/emoji_2017_12_06/sheet_google_64_indexed_256.png',
+	},
+};
+	</script>
+	<script type="text/javascript">
+		// common boot_data
+	var boot_data = {"api_url":"\/api\/","app":"false","user_id":null,"team_id":"T00000000","visitor_uid":"241f5f832788721fa16860f56ac03297","no_login":true,"version_ts":1638297199,"version_uid":"d62fc6cb63a342a4f7145314bc75afede21e6ec4","cache_version":"v21-nomad","cache_ts_version":"v2-bunny","redir_domain":"slack-redir.net","cdn":{"edges":["https:\/\/a.slack-edge.com\/","https:\/\/b.slack-edge.com\/","https:\/\/a.slack-edge.com\/"],"avatars":"https:\/\/ca.slack-edge.com\/","downloads":"https:\/\/downloads.slack-edge.com\/","files":"https:\/\/slack-files.com\/"},"signin_url":"https:\/\/slack.com\/signin","abs_root_url":"https:\/\/slack.com\/","team_url":"","image_proxy_url":"https:\/\/slack-imgs.com\/","beacon_timing_url":"https:\/\/slack.com\/beacon\/timing","beacon_error_url":"https:\/\/slack.com\/beacon\/error","clog_url":"clog\/track\/","api_token":"","vvv_paths":{"lz_string":"https:\/\/a.slack-edge.com\/bv1-9\/lz-string-1.4.4.worker.8de1b00d670ff3dc706a0.js","codemirror":"https:\/\/a.slack-edge.com\/bv1-9\/codemirror.min.350605e945cf98de466f.min.js","codemirror_addon_simple":"https:\/\/a.slack-edge.com\/bv1-9\/codemirror_simple.8ad91930e7e2b8a7adad.min.js","codemirror_load":"https:\/\/a.slack-edge.com\/bv1-9\/codemirror_load.9093949a8393a3a383f4.min.js","codemirror_files":{"javascript":"https:\/\/a.slack-edge.com\/bv1-9\/codemirror_lang_javascript.28bdabb3e589b97eccb5.min.js"}},"notification_sounds":[{"value":"b2.mp3","label":"Ding","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/b2.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/b2.ogg"},{"value":"animal_stick.mp3","label":"Boing","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/animal_stick.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/animal_stick.ogg"},{"value":"been_tree.mp3","label":"Drop","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/been_tree.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/been_tree.ogg"},{"value":"complete_quest_requirement.mp3","label":"Ta-da","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/complete_quest_requirement.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/complete_quest_requirement.ogg"},{"value":"confirm_delivery.mp3","label":"Plink","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/confirm_delivery.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/confirm_delivery.ogg"},{"value":"flitterbug.mp3","label":"Wow","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/flitterbug.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/flitterbug.ogg"},{"value":"here_you_go_lighter.mp3","label":"Here you go","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/here_you_go_lighter.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/here_you_go_lighter.ogg"},{"value":"hi_flowers_hit.mp3","label":"Hi","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/hi_flowers_hit.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/hi_flowers_hit.ogg"},{"value":"knock_brush.mp3","label":"Knock Brush","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/knock_brush.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/knock_brush.ogg"},{"value":"save_and_checkout.mp3","label":"Whoa!","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/save_and_checkout.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/save_and_checkout.ogg"},{"value":"item_pickup.mp3","label":"Yoink","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/item_pickup.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/item_pickup.ogg"},{"value":"hummus.mp3","label":"Hummus","url":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/hummus.mp3","url_ogg":"https:\/\/a.slack-edge.com\/58f5096\/sounds\/push\/hummus.ogg"},{"value":"none","label":"None"}],"alert_sounds":[{"value":"frog.mp3","label":"Frog","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/frog.mp3"}],"call_sounds":[{"value":"call\/alert_v2.mp3","label":"Alert","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/alert_v2.mp3"},{"value":"call\/incoming_ring_v2.mp3","label":"Incoming ring","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/incoming_ring_v2.mp3"},{"value":"call\/outgoing_ring_v2.mp3","label":"Outgoing ring","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/outgoing_ring_v2.mp3"},{"value":"call\/pop_v2.mp3","label":"Incoming reaction","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/pop_v2.mp3"},{"value":"call\/they_left_call_v2.mp3","label":"They left call","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/they_left_call_v2.mp3"},{"value":"call\/you_left_call_v2.mp3","label":"You left call","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/you_left_call_v2.mp3"},{"value":"call\/they_joined_call_v2.mp3","label":"They joined call","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/they_joined_call_v2.mp3"},{"value":"call\/you_joined_call_v2.mp3","label":"You joined call","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/you_joined_call_v2.mp3"},{"value":"call\/confirmation_v2.mp3","label":"Confirmation","url":"https:\/\/slack.global.ssl.fastly.net\/58f5096\/sounds\/call\/confirmation_v2.mp3"}],"call_sounds_version":"v2","img":{"app_icon":"https:\/\/a.slack-edge.com\/80588\/img\/slack_growl_icon_vogue.png"},"page_needs_enterprise":false,"page_needs_custom_emoji":false,"is_deprecated_webclient_browser":false,"is_unsupported_webclient_browser":true,"default_tz":"America\/Los_Angeles","feature_builder_story_step":false,"feature_builder_multistep_collaborators_modal":true,"feature_builder_unique_trigger_id_output":false,"feature_chime_access_check":false,"feature_audit_logs_view":false,"feature_audit_logs_view_workspace":false,"feature_org_dashboard_gantry_access":true,"feature_org_dash_gantry_redirect":true,"feature_day2_share_modal":true,"feature_context_bar_tz_issues":false,"feature_tinyspeck":false,"feature_end_dm":true,"feature_scdm_compose_copy_paste_multiple_emails":true,"feature_olug_esc_channels_work":true,"feature_olug_remove_required_workspace_setting":false,"feature_data_table_in_org_level_user_groups":false,"feature_browser_deprecation_team_site_org_dash":true,"feature_newxp_browser_deprecation":true,"feature_org_settings_m11n":false,"feature_deprecate_get_member_by_name":false,"feature_unknown_messages":true,"feature_add_message_perf":false,"feature_fix_custom_emoji_errors":true,"feature_modern_delete_file":true,"feature_copy_channel_link":true,"feature_collapse_reactions":true,"feature_full_profile_link":true,"feature_print_pdf":false,"feature_safari10_deprecation":true,"feature_safari10_deprecation_modal":true,"feature_safari10_deprecation_block":true,"feature_desktop460_deprecation":false,"feature_desktop460_deprecation_block":false,"feature_email_workflow":false,"feature_wider_reaction_tip":false,"feature_file_picker_search_i18n":false,"feature_composer_email_classification":false,"feature_amazon_a11y_custom_status_emoji":true,"feature_file_threads":true,"feature_broadcast_indicator":true,"feature_new_replies_after_bcast":true,"feature_sonic_emoji":true,"feature_emoji_12":false,"feature_email_ingestion":false,"feature_attachments_inline":false,"feature_compose_flow":true,"feature_compose_flow_xws":true,"feature_desktop_symptom_events":false,"feature_data_residency_debugging":false,"feature_ent_admin_approved_apps_v2":true,"feature_dashboard_sortable_lists":false,"feature_sk_loading_button_motions":true,"feature_condition_block":false,"feature_find_an_admin_disconnect_explainer":false,"feature_shared_channels_multi_org_qa_limit_override":false,"feature_channels_view_in_msc":false,"feature_gdpr_user_join_tos":true,"feature_user_invite_tos_april_2018":true,"feature_enrich_fetch_team_user_from_db":true,"feature_assign_roles_ui_refresh":true,"feature_channel_mgmt_message_count":false,"feature_ui_generator_updates":true,"feature_cust_acq_i18n_tweaks":false,"feature_whitelist_zendesk_chat_widget":false,"feature_use_imgproxy_resizing":true,"feature_boards_in_dev":false,"feature_disable_bk_in_thread":false,"feature_new_locale_toast":true,"feature_channel_exports":false,"feature_docs_mentions_and_channels":false,"feature_calls_survey_request_response":true,"feature_sidebar_theme_undo":true,"feature_allow_intra_word_formatting":true,"feature_private_channel_membership_limit":false,"feature_slim_scrollbar":false,"feature_primary_search":false,"feature_edge_upload_proxy_check":false,"feature_unread_counts_delay":true,"feature_legacy_file_upload_analytics":true,"feature_mpdm_limit_channel_creation":false,"feature_snippet_modes_i18n":false,"feature_ekm_message_revocation_polling_test":false,"feature_ms_latest":true,"feature_rooms_join_api":true,"feature_rooms_join_url":false,"feature_calls_sip_integration_labels":false,"feature_tasks_v1_copy":false,"feature_custom_status_calendar_sync_copy":true,"feature_custom_status_calendar_sync":false,"feature_mask_undocumented_errors":false,"feature_app_actions_admin_pages":true,"feature_app_views_reminders":true,"feature_reminders_org_shard":false,"feature_reminders_grid_migrations_org_shard":false,"feature_blocks_reminders_list":false,"feature_share_message_via_message_blocks":false,"feature_message_blocks":false,"feature_silence_app_dms":false,"feature_set_tz_automatically":true,"feature_confirm_clear_all_unreads_pref":true,"feature_block_mounts":true,"feature_attachments_v2":true,"feature_group_block":false,"feature_show_block_kit_in_share_dialogs":false,"feature_block_kit_table":false,"feature_input_blocks_in_messages":true,"feature_multiselects_in_actions_block":false,"feature_block_kit_range_datepicker":false,"feature_delete_app_homes_associated_with_deleted_service":true,"feature_soft_delete_app_homes_on_user_deactivation":false,"feature_block_kit_timepicker":true,"feature_block_kit_timepicker_remind":true,"feature_block_kit_datepicker_input":true,"feature_block_kit_remount_on_update":true,"feature_add_app_home_team_name":true,"feature_beacon_js_errors":false,"feature_user_app_disable_speed_bump":true,"feature_degraded_rtm_always_fails":false,"feature_apps_manage_permissions_scope_changes":true,"feature_reminder_cross_workspace":true,"feature_p2p":false,"feature_new_reactions":true,"feature_pages_example":false,"feature_sonic_video_placeholder":true,"feature_iap1":false,"feature_ia_ga":true,"feature_ia_debug_off":false,"feature_ia_i18n":true,"feature_ia_themes":true,"feature_ia_member_profile":true,"feature_scdm_collapse_unfurls":false,"feature_workspace_scim_management":false,"feature_desktop_reload_on_generic_error":true,"feature_desktop_extend_app_menu":false,"feature_desktop_restart_service_worker":false,"feature_desktop_system_notification_playback":false,"feature_desktop_force_production_channel":false,"feature_create_private_c_channels":true,"feature_managed_connections_grid_org_dash":false,"feature_slack_connect_approve_new_channels":true,"feature_slack_connect_approve_new_channels_new_teams":true,"feature_bots_not_members":true,"feature_wta_stop_creation":true,"feature_platform_deprecations_fe":true,"feature_app_manifest_open_beta":true,"feature_app_config_collaborators_gantry":true,"feature_no_socket_mode":false,"feature_no_callback_id_edit":false,"feature_admin_email_change_confirm":false,"feature_channel_actions":true,"feature_screen_share_needs_aero":false,"feature_emoji_by_id":true,"feature_scg_conversion_channels":true,"feature_enterprise_retention_allow_override_on_org_level_channels":false,"feature_legal_holds_org_dashboard":true,"feature_channel_invite_tokenization":true,"feature_imports_cancel":true,"feature_email_workobject_ui":false,"feature_email_notify":false,"feature_improved_email_rendering":true,"feature_mini_browser_translations":false,"feature_unfurl_metadata":false,"feature_paperclip_coachmark_experiments":true,"feature_plus_menu_add_apps_link":false,"feature_recent_files_omnipicker":false,"feature_recent_desktop_files":true,"feature_huddles_i18n":false,"feature_connect_deeplink":false,"feature_cea_allowlist_changes":false,"feature_cea_channel_management":true,"feature_cea_admin_controls":false,"feature_cea_allowlist_changes_plus":false,"feature_link_protocol_beta":true,"feature_ia_layout":false,"feature_misc_ia_a11y_translations":false,"feature_threaded_call_block":false,"feature_enable_read_time_validations_for_shortcuts":true,"feature_slack_message_attachment_tooltip":false,"feature_enterprise_mobile_device_check":true,"feature_new_copy_for_identity_basic":false,"feature_trace_webapp_init":true,"feature_trace_jq_init":true,"feature_seven_days_email_update":true,"feature_rename_plan_name":true,"feature_uae_tax_id_collection":true,"feature_quebec_tax_id_collection":true,"feature_quebec_tax_assessment":true,"feature_georgia_tax_id_collection":false,"feature_georgia_tax_assessment":false,"feature_ksa_tax_id_collection":true,"feature_indonesia_tax_change_notification":false,"feature_indonesia_tax_assessment":false,"feature_canada_tax_change_notification":true,"feature_canada_tax_assessment":true,"feature_mexico_tax_change_notification":true,"feature_mexico_tax_assessment":true,"feature_channel_sections":true,"feature_channel_sections_sidebar_behavior_ui":false,"feature_migrate_google_directory_apis":true,"feature_show_email_forwarded_by":false,"feature_feature_builder_sk_required_arialabel":false,"feature_builder_workflow_activity":true,"feature_download_finder_update":true,"feature_share_modal_dialog":true,"feature_block_files_esc":true,"feature_parsec_methods":false,"feature_invite_new_error":true,"feature_soul_searchers":false,"feature_mpdm_audience_expansion":true,"feature_newxp_3795":false,"feature_new_notifications_string":false,"feature_msc_button_for_slackbot_msg":false,"feature_idr_s3_files_sharded_backfill":true,"feature_xws_user_groups_selector":true,"feature_context_menu_keyboard_shortcut":true,"feature_announcer_api":false,"feature_reacji_aria_announcements":false,"feature_search_aria_initial_state":true,"feature_accessible_date_picker_select":false,"feature_file_upload_size_restricted":true,"feature_builder_improve_messaging":true,"feature_remove_email_preview_link":true,"feature_desktop_enable_tslog":false,"feature_desktop_enable_sticky_notification_pref":false,"feature_ntlm_domain_approval_ui":false,"feature_animations_os_pref_sync":true,"feature_pagination_arrow_keys_i18n":true,"feature_email_determine_charset":true,"feature_windows7_deprecation":true,"feature_windows7_deprecation_modal":false,"feature_no_deprecation_in_updater":false,"feature_mixed_results_related_i18n":false,"feature_new_multi_select":false,"feature_user_prefers_paused_animations":false,"feature_ez_subscribe_v_1_stage_0":false,"feature_pea_domain_allowlist":true,"feature_composer_auth_admin":false,"feature_ukraine_tax_id_collection":false,"feature_ukraine_tax_assessment":false,"client_logs":{"0":{"numbers":["0"],"user_facing":false},"2":{"numbers":["2"],"user_facing":false},"4":{"numbers":["4"],"user_facing":false},"5":{"numbers":["5"],"user_facing":false},"23":{"numbers":["23"],"user_facing":false},"sounds":{"name":"sounds","numbers":["37"]},"37":{"name":"sounds","numbers":["37"],"user_facing":true},"47":{"numbers":["47"],"user_facing":false},"48":{"numbers":["48"],"user_facing":false},"Message History":{"name":"Message History","numbers":["58"]},"58":{"name":"Message History","numbers":["58"],"user_facing":true},"67":{"numbers":["67"],"user_facing":false},"72":{"numbers":["72"],"user_facing":false},"73":{"numbers":["73"],"user_facing":false},"82":{"numbers":["82"],"user_facing":false},"88":{"numbers":["88"],"user_facing":false},"91":{"numbers":["91"],"user_facing":false},"93":{"numbers":["93"],"user_facing":false},"96":{"numbers":["96"],"user_facing":false},"99":{"numbers":["99"],"user_facing":false},"Channel Marking (MS)":{"name":"Channel Marking (MS)","numbers":["141"]},"141":{"name":"Channel Marking (MS)","numbers":["141"],"user_facing":true},"Channel Marking (Client)":{"name":"Channel Marking (Client)","numbers":["142"]},"142":{"name":"Channel Marking (Client)","numbers":["142"],"user_facing":true},"365":{"numbers":["365"],"user_facing":false},"389":{"numbers":["389"],"user_facing":false},"438":{"numbers":["438"],"user_facing":false},"444":{"numbers":["444"],"user_facing":false},"481":{"numbers":["481"],"user_facing":false},"488":{"numbers":["488"],"user_facing":false},"529":{"numbers":["529"],"user_facing":false},"552":{"numbers":["552"],"user_facing":false},"dashboard":{"name":"dashboard","numbers":["666"]},"666":{"name":"dashboard","numbers":["666"],"user_facing":false},"667":{"numbers":["667"],"user_facing":false},"773":{"numbers":["773"],"user_facing":false},"777":{"numbers":["777"],"user_facing":false},"794":{"numbers":["794"],"user_facing":false},"Client Responsiveness":{"name":"Client Responsiveness","user_facing":false,"numbers":["808"]},"808":{"name":"Client Responsiveness","user_facing":false,"numbers":["808"]},"Message Pane Scrolling":{"name":"Message Pane Scrolling","numbers":["888"]},"888":{"name":"Message Pane Scrolling","numbers":["888"],"user_facing":true},"Unread banner and divider":{"name":"Unread banner and divider","numbers":["999"]},"999":{"name":"Unread banner and divider","numbers":["999"],"user_facing":true},"1000":{"numbers":["1000"],"user_facing":false},"Duplicate badges (desktop app icons)":{"name":"Duplicate badges (desktop app icons)","numbers":["1701"]},"1701":{"name":"Duplicate badges (desktop app icons)","numbers":["1701"],"user_facing":true},"Members":{"name":"Members","numbers":["1975"]},"1975":{"name":"Members","numbers":["1975"],"user_facing":true},"lazy loading":{"name":"lazy loading","numbers":["1989"]},"1989":{"name":"lazy loading","numbers":["1989"],"user_facing":true},"thin_channel_membership":{"name":"thin_channel_membership","numbers":["1990"]},"1990":{"name":"thin_channel_membership","numbers":["1990"],"user_facing":true},"stats":{"name":"stats","numbers":["1991"]},"1991":{"name":"stats","numbers":["1991"],"user_facing":true},"ms":{"name":"ms","numbers":["1996"]},"1996":{"name":"ms","numbers":["1996"],"user_facing":true},"shared_channels_connection":{"name":"shared_channels_connection","numbers":["1999"]},"1999":{"name":"shared_channels_connection","numbers":["1999"],"user_facing":false},"dnd":{"name":"dnd","numbers":["2002"]},"2002":{"name":"dnd","numbers":["2002"],"user_facing":true},"2003":{"numbers":["2003"],"user_facing":false},"Threads":{"name":"Threads","numbers":["2004"]},"2004":{"name":"Threads","numbers":["2004"],"user_facing":true},"2005":{"numbers":["2005"],"user_facing":false},"Reactions":{"name":"Reactions","numbers":["2006"]},"2006":{"name":"Reactions","numbers":["2006"],"user_facing":true},"TSSSB.focusTabAndSwitchToChannel":{"name":"TSSSB.focusTabAndSwitchToChannel","numbers":["2007"]},"2007":{"name":"TSSSB.focusTabAndSwitchToChannel","numbers":["2007"],"user_facing":false},"Presence Detection":{"name":"Presence Detection","numbers":["2017"]},"2017":{"name":"Presence Detection","numbers":["2017"],"user_facing":true},"mc_sibs":{"name":"mc_sibs","numbers":["9999"]},"9999":{"name":"mc_sibs","numbers":["9999"],"user_facing":false},"Member searching":{"name":"Member searching","numbers":["90211"]},"90211":{"name":"Member searching","numbers":["90211"],"user_facing":true},"98765":{"numbers":["98765"],"user_facing":false},"8675309":{"numbers":["8675309"],"user_facing":false}},"other_accounts":{},"slack_connect_create_bots_count":0,"slack_connect_manage_bots_count":0};
+	boot_data.start_ms = Date.now();
+	</script>
+	<script type="text/javascript">
+		var TS_last_log_date = null;
+var TSMakeLogDate = function() {
+	var date = new Date();
+
+	var y = date.getFullYear();
+	var mo = date.getMonth()+1;
+	var d = date.getDate();
+
+	var time = {
+	  h: date.getHours(),
+	  mi: date.getMinutes(),
+	  s: date.getSeconds(),
+	  ms: date.getMilliseconds()
+	};
+
+	Object.keys(time).map(function(moment, index) {
+		if (moment == 'ms') {
+			if (time[moment] < 10) {
+				time[moment] = time[moment]+'00';
+			} else if (time[moment] < 100) {
+				time[moment] = time[moment]+'0';
+			}
+		} else if (time[moment] < 10) {
+			time[moment] = '0' + time[moment];
+		}
+	});
+
+	var str = y + '/' + mo + '/' + d + ' ' + time.h + ':' + time.mi + ':' + time.s + '.' + time.ms;
+	if (TS_last_log_date) {
+		var diff = date-TS_last_log_date;
+		//str+= ' ('+diff+'ms)';
+	}
+	TS_last_log_date = date;
+	return str+' ';
+}
+
+var parseDeepLinkRequest = function(code) {
+	var m = code.match(/"id":"([CDG][A-Z0-9]{8,})"/);
+	var id = m ? m[1] : null;
+
+	m = code.match(/"team":"(T[A-Z0-9]{8,})"/);
+	var team = m ? m[1] : null;
+
+	m = code.match(/"message":"([0-9]+\.[0-9]+)"/);
+	var message = m ? m[1] : null;
+
+	return { id: id, team: team, message: message };
+}
+
+if ('rendererEvalAsync' in window) {
+	var origRendererEvalAsync = window.rendererEvalAsync;
+	window.rendererEvalAsync = function(blob) {
+		try {
+			var data = JSON.parse(decodeURIComponent(atob(blob)));
+			if (data.code.match(/handleDeepLink/)) {
+				var request = parseDeepLinkRequest(data.code);
+				if (!request.id || !request.team || !request.message) return;
+
+				request.cmd = 'channel';
+				TSSSB.handleDeepLinkWithArgs(JSON.stringify(request));
+				return;
+			} else {
+				origRendererEvalAsync(blob);
+			}
+		} catch (e) {
+		}
+	}
+}
+	</script>
+	<script type="text/javascript">
+		var TSSSB = {
+	call: function() {
+		return false;
+	}
+};
+	</script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-core_required_libs.78d0fef160fb82e9785c.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/modern.vendor.85b647c1edd6bd6703b9.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/application.58f19e11473a4f87650a.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/api-docs.7e79385f1ffe346f0a8c.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-core_required_ts.009e2caab7f102395330.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-core_web.746d44ec1a9b72364054.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-api_docs.9afcd2ea186b236cd773.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-secondary_a_required.a39560acf201dd83d5ca.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script type="text/javascript" crossorigin="anonymous"
+		src="https://a.slack-edge.com/bv1-9/rollup-secondary_b_required.96fe2b1169e7fa841c7f.min.js"
+		onload="window._cdn ? _cdn.ok(this, arguments) : null"
+		onerror="window._cdn ? _cdn.failed(this, arguments) : null"></script>
+	<script>
+		window.boot_data = window.boot_data || {};
+			boot_data.no_login = true;
+			boot_data.app = 'api';
+			boot_data.api_url = '/api/';
+			TS.boot(boot_data);
+	</script>
+
+	<!-- slack-www-hhvm-main-iad-a47c/ 2021-11-30 12:41:09/ vd62fc6cb63a342a4f7145314bc75afede21e6ec4/ B:H -->
+
+	<script>
+		(function () {
+	const tab_els = document.querySelectorAll('.apiDocsTabber');
+	tab_els.forEach((tabber) => {
+		tabber.classList.add('apiDocsTabber--active');
+		const tab_group = tabber.querySelector(':scope > .apiDocsTabber__tabs');
+		const switch_group = tabber.querySelector(':scope > .apiDocsTabber__switches');
+		const switches = tabber.querySelectorAll(
+			':scope > .apiDocsTabber__switches > .apiDocsTabber__switch'
+		);
+		switches.forEach((switch_ele) => {
+			switch_ele.addEventListener('click', (e) => {
+				e.preventDefault();
+				const target_name = switch_ele.getAttribute('data-target');
+				const new_path = switch_ele.getAttribute('data-path');
+				const target_tab = tab_group.querySelector(
+					`:scope > .apiDocsTabber__tab[data-tab=${target_name}]`
+				);
+				const active_tab = tab_group.querySelector(':scope > .apiDocsTabber__tab--active');
+				const active_switch = switch_group.querySelector(
+					':scope > .apiDocsTabber__switch--active'
+				);
+				if (target_tab !== active_tab) {
+					if (new_path) {
+						window.history.pushState({}, '', new_path);
+					}
+					if (active_tab) {
+						active_tab.classList.remove('apiDocsTabber__tab--active');
+					}
+					if (active_switch) {
+						active_switch.classList.remove('apiDocsTabber__switch--active');
+					}
+					target_tab.classList.add('apiDocsTabber__tab--active');
+					switch_ele.classList.add('apiDocsTabber__switch--active');
+				}
+			});
+		});
+	});
+})();
+	</script>
+	<script>
+		(function () {
+	const urlParams = new URLSearchParams(window.location.search);
+	if (!urlParams.has('forceExpandAll')) {
+		const toggler_eles = document.querySelectorAll('.apiDocsToggler');
+		toggler_eles.forEach((ele) => {
+			ele.classList.add('apiDocsToggler--active');
+			const showOnLoad = ele.classList.contains('apiDocs__collapsable--showOnLoad');
+			const toggle = ele.querySelector('.apiDocsToggler__toggle');
+			const target = ele.querySelector('.apiDocsToggler__target');
+			if (showOnLoad) {
+				ele.classList.add('apiDocsToggler__toggle--toggled');
+				target.classList.add('apiDocsToggler__target--toggled');
+			}
+			const bodyToggleClass = ele.getAttribute('data-body-toggle') || null;
+			toggle.addEventListener('click', () => {
+				toggle.classList.toggle('apiDocsToggler__toggle--toggled');
+				target.classList.toggle('apiDocsToggler__target--toggled');
+				ele.classList.toggle('apiDocsToggler--toggled');
+				if (bodyToggleClass) {
+					document.body.classList.toggle(bodyToggleClass);
+				}
+			});
+		});
+	}
+})();
+	</script>
+	<script>
+		hljs.configure({ languages: ['json', 'bash', 'javascript', 'http', 'java', 'python'] }); 
+hljs.initHighlighting(); 
+
+(function () {
+	document
+		.querySelectorAll(
+			'.apiDocsPage__markdownOutput pre, .apiTracks__step pre, .apiCodeSnippets__panelCode > pre'
+		)
+		.forEach((block) => block.classList.add('apiCode__pre'));
+	const code_blocks = document.querySelectorAll(
+		'.apiDocsPage__markdownOutput pre code, .apiTracks__step pre code, .apiCodeSnippets__panelCode pre code'
+	);
+	code_blocks.forEach((block) => {
+		const block_line_wrapped = block.innerHTML
+			.split('\n')
+			.map((line) => `<span class="apiCode__line">${line}</span>`);
+		block.innerHTML = block_line_wrapped.join('\n');
+	});
+})();
+	</script>
+	<script>
+		(function () {
+	const tables = document.querySelectorAll('.apiDocsPage__markdownOutput table');
+	tables.forEach((table) => {
+		table.classList.add('apiDocsTable', 'apiDocsTable--active');
+		const headers = table.querySelectorAll('thead tr th');
+		if (headers) {
+			const rows = table.querySelectorAll('tbody tr');
+			rows.forEach((row) => {
+				const cells = row.querySelectorAll('td');
+				cells.forEach((cell, idx) => {
+					if (idx in headers) {
+						const label = headers[idx].textContent;
+						if (label) {
+							const slug = encodeURIComponent(
+								label.replace(' ', '_').replace('?', '')
+							);
+							cell.setAttribute('data-label', headers[idx].textContent);
+							cell.setAttribute('data-value', cell.textContent);
+							cell.innerHTML = `<div class='apiDocsTable__cellContent'>${cell.innerHTML}</div>`;
+							cell.classList.add('apiDocsTable__cell', `apiDocsTable__cell--${slug}`);
+						}
+					}
+				});
+			});
+		}
+	});
+})();
+	</script>
+</body>
+
+</html>
