@@ -5,7 +5,6 @@ function sendClaimLeadSierra ($data) {
   $curl = curl_init();
 	$agent = $data->agent;
 	$lead = $data->lead;
-
 	curl_setopt_array($curl, array(
 		CURLOPT_URL => 'https://api.sierrainteractivedev.com/leads/'.$lead->data->id,
 		CURLOPT_RETURNTRANSFER => true,

@@ -12,6 +12,7 @@ function sendNewLead($leadData) {
     CURLOPT_POSTFIELDS=>new_lead_template($leadData),
     CURLOPT_RETURNTRANSFER=>true
   ));
+  echo new_lead_template($leadData);
   $response = curl_exec($curl);
   curl_close($curl);
   echo $response;
